@@ -46,18 +46,18 @@ ngOnInit(): void {
   this.route.paramMap.subscribe((params) => {
     const blogId = params.get('id');
     if (blogId) {
-      this.blogId = blogId;
+      this.blogId = blogId; 
       this.blogService.getBlog(this.blogId).subscribe((data: Blog) => {
         this.blogPost = data;
-       // this.getCommentsByBlogId(this.blogId);
-       if (blogId) {
         this.getCommentsByBlogId(this.blogId);
-        this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) => {
+       /* if (blogId) { */
+        this.getCommentsByBlogId(this.blogId);
+        /* this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) =>{
           this.ratingCount = ratingCount.count;
           this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
           this.similarBlogs = similarBlogs;
         });
-        if(this.blogPost.tourReport){
+        /* if(this.blogPost.tourReport){
           this.touristDistance = this.blogPost.tourReport.length;
           this.tourService.getCheckpointsByVisitedCheckpoints(this.blogPost.tourReport.checkpointsVisited).subscribe({
             next: (result: PagedResults<Checkpoint>) =>{
@@ -69,11 +69,11 @@ ngOnInit(): void {
               this.equipment = result.results;
             }
           })
-        }
-      });
-      } else {
+        } 
+      }); */
+/*       } else {
         // Handle the case when there is no valid tour ID in the URL.
-      }
+      } */
       });
     }
   });

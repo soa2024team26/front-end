@@ -12,10 +12,10 @@
   <div class="blog-text">
     {{ blogPost?.description }}
   </div>
-  <label *ngIf="blogPost.tourReport">
+<!--   <label *ngIf="blogPost.tourReport">
     Traveled Distance: {{ touristDistance }}m
-  </label>
-  <div *ngIf="blogPost.tourReport">
+  </label> -->
+  <!-- <div *ngIf="blogPost.tourReport">
     <h3>Visited Checkpoints</h3>
     <table>
       <thead>
@@ -29,8 +29,8 @@
         </tr> 
       </tbody>
     </table>
-  </div>
-  <div *ngIf="blogPost.tourReport">
+  </div> -->
+  <!-- <div *ngIf="blogPost.tourReport">
     <h3>Equipment Used</h3>
     <table>
       <thead>
@@ -44,7 +44,7 @@
         </tr>
       </tbody>
     </table>                              
-  </div>
+  </div> -->
   <div class="blog-info">
     <p>Author: {{ blogPost?.username }}</p>
     <p>Created: {{ blogPost?.creationTime | date:'medium' }}</p>
