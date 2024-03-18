@@ -4,7 +4,6 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -23,7 +22,7 @@ export class BlogManagemetComponent {
   olderFileUrl: string | null = null;
   userId = this.authService.user$.value.id;
 
-  constructor(private service: BlogService, private router: Router, private authService: AuthService,  private snackBar: MatSnackBar) { }
+  constructor(private service: BlogService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getBlogsByUserId(this.userId);
@@ -68,12 +67,11 @@ export class BlogManagemetComponent {
     this.router.navigate(['blog-form', blog.id]);
   }
   
-  deleteBlog(id: number): void {
+  deleteBlog(id: string): void {
     console.log(id)
     this.service.deleteBlog(id).subscribe({
       next: () => {
         this.getBlogsByUserId(this.userId);
-        this.showNotification('Blog successfully deleted!');
       },
     })
   }
@@ -95,12 +93,6 @@ export class BlogManagemetComponent {
     } catch (error) {
       console.error('An error occurred:', error);
     }
-  }
-
-  showNotification(message: string): void {
-    this.snackBar.open(message, '', {
-      duration: 3000, 
-    });
   }
 
 }
