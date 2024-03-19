@@ -50,8 +50,16 @@ ngOnInit(): void {
       this.blogService.getBlog(this.blogId).subscribe((data: Blog) => {
         this.blogPost = data;
         this.getCommentsByBlogId(this.blogId);
-       /* if (blogId) { */
-        this.getCommentsByBlogId(this.blogId);
+        if(blogId){
+          this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) =>{
+            this.ratingCount = ratingCount.count;
+            this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
+            this.similarBlogs = similarBlogs;
+          });
+        });
+        }
+       /* if (blogId) {
+        // this.getCommentsByBlogId(this.blogId);
         /* this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) =>{
           this.ratingCount = ratingCount.count;
           this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
