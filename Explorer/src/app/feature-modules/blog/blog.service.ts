@@ -52,6 +52,7 @@ export class BlogService {
   }
 
   updateBlog(blog: Blog): Observable<Blog> {
+    console.log(blog.userId)
     return this.http.put<Blog>('http://localhost:8080/api/' + 'tourist/blog/' + blog.id, blog);
   }
 
@@ -76,7 +77,7 @@ export class BlogService {
   }
 
   getBlogsByUserId(id: number): Observable<PagedResults<Blog>> {
-    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog/byUser/' + id);
+    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog/getByUserID/' + id);
   }
   getCommentsByBlogId(id: string): Observable<PagedResults<BlogComment>> {
     return this.http.get<PagedResults<BlogComment>>('http://localhost:8080/api/' + 'tourist/blogcomment/getByBlogID/' + id);
