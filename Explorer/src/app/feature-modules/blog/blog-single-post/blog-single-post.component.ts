@@ -126,7 +126,7 @@ ngOnInit(): void {
             blogId: this.blogId
           };
       
-          this.blogService.addRating(rating).subscribe({
+          this.blogService.addRating(rating, this.blogId).subscribe({
             next: () => {
               this.updateRatingCount();
             },
@@ -159,7 +159,7 @@ ngOnInit(): void {
             blogId: this.blogId
           };
       
-          this.blogService.addRating(rating).subscribe({
+          this.blogService.addRating(rating, this.blogId).subscribe({
             next: () => {
               this.updateRatingCount();
             },
@@ -173,7 +173,7 @@ ngOnInit(): void {
   }
 
   sendRating() {
-    this.blogService.addRating(this.rating).subscribe(
+    this.blogService.addRating(this.rating, this.blogId).subscribe(
       response => {
       },
       error => {

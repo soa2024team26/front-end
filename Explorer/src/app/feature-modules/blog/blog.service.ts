@@ -55,12 +55,12 @@ export class BlogService {
     return this.http.put<Blog>('http://localhost:8080/api/' + 'tourist/blog/' + blog.id, blog);
   }
 
-  addRating(rating: Rating): Observable<any> {
-    return this.http.put('http://localhost:8080/api/' + 'tourist/blog/AddRating', rating);
+  addRating(rating: Rating, id: string): Observable<any> {
+    return this.http.put('http://localhost:8080/api/' + 'tourist/blog/AddRating/' + id, rating);
   }
 
   getRatingCount(id: string): Observable<any> {
-    return this.http.get<any>(`${environment.apiHost}tourist/blog/RatingCount?blogId=${id}`);
+    return this.http.get<any>('http://localhost:8080/api/' + 'tourist/blog/RatingCount/' + id);
   }  
   
 
