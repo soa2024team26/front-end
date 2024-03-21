@@ -23,18 +23,18 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Checkpoint>>('https://localhost:44333/api/addcheckpoint/checkpoint?page=0&pageSize=0');
   }
   getCheckpointById(checkpointId: Number): Observable<Checkpoint> {
-    return this.http.get<Checkpoint>(`https://localhost:44333/api/addcheckpoint/checkpoint/${checkpointId}`);
+    return this.http.get<Checkpoint>(`https://localhost:8081/api/' + 'author/checkpoint/${checkpointId}`);
   }
   addCheckpoint(checkpoint: Checkpoint) : Observable<Checkpoint>{
-    return this.http.post<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/', checkpoint)
+    return this.http.post<Checkpoint>('https://localhost:8081/api/' + 'author/checkpoint/', checkpoint)
   }
 
   updateCheckpoint(checkpoint: Checkpoint): Observable<Checkpoint>{
-    return this.http.put<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/' + checkpoint.id, checkpoint)
+    return this.http.put<Checkpoint>('https://localhost:8081/api/' + 'author/checkpoint/' + checkpoint.id, checkpoint)
   }
 
   deleteCheckpoint(id: number): Observable<Checkpoint> {
-    return this.http.delete<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/' + id);
+    return this.http.delete<Checkpoint>('https://localhost:8081/api/' + 'author/checkpoint/' + id);
   }
 
   upload(file: File): Observable<HttpEvent<any>> {
@@ -78,20 +78,20 @@ export class TourAuthoringService {
   }
 
   getTours() : Observable<PagedResults<Tour>> {
-    return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/author/tour?page=0&pageSize=0');
+    return this.http.get<PagedResults<Tour>>('https://localhost:8081/api/' + 'author/tour?page=0&pageSize=0');
   }
 
   getTour(id: Number): Observable<Tour> {
-    return this.http.get<Tour>('https://localhost:44333/api/author/tour/' + id);
+    return this.http.get<Tour>('https://localhost:8081/api/' + 'author/tour/' + id);
   }
 
   addTour(tour: Tour) : Observable<Tour>{
-    return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
+    return this.http.post<Tour>('https://localhost:8081/api/' + 'author/tour/' , tour)
   }
 
 
   updateTour(tour: Tour): Observable<Tour>{
-    return this.http.put<Tour>('https://localhost:44333/api/author/tour/' + tour.id, tour)
+    return this.http.put<Tour>('https://localhost:8081/api/' + 'author/tour/' + tour.id, tour)
   }
 
   updateTourCheckpoints(tour:Tour,checkpointId:number) {
@@ -104,7 +104,7 @@ export class TourAuthoringService {
   }
 
   deleteTour(id: number): Observable<Tour> {
-    return this.http.delete<Tour>('https://localhost:44333/api/author/tour/' + id);
+    return this.http.delete<Tour>('https://localhost:8081/api/' + 'author/tour/' + id);
   }
 
   addEquipmentToTour(equipment: Equipment, tour: Tour) : Observable<Equipment>{
