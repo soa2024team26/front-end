@@ -1,17 +1,41 @@
+import { BlogTourReport } from "./blog-tour-report";
+
 export enum BlogStatus {
     Draft = 0,
     Published = 1,
-    Closed = 2
+    Closed = 2,
+    Active = 3,
+    Famous = 4
 }
 
+
+
+export enum BlogCategory {
+  Destinations = 0,
+  Travelogues = 1,
+  Activities = 2,
+  Gastronomy = 3,
+  Tips = 4,
+  Culture = 5,
+  Accommodation = 6
+}
+
+export const BlogCategoryValues = Object.values(BlogCategory);
+
+
+
+
 export interface Blog {
-    id? : number;
+    id? : string;
     userId : number;
+    username: string;
     title : string;
     description : string;
     creationTime: Date;
     status : BlogStatus;
     image: string | "";
+    category: BlogCategory;
+    tourReport?: BlogTourReport; 
 }
 
 export function numberToBlogStatus(value: number): BlogStatus {

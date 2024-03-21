@@ -1,7 +1,8 @@
 export interface BlogComment {
-    id?: number;
+    id?: string;
     userId : number;
-    blogId : number;
+    username: string;
+    blogId : string;
     text: string;
     creationTime : Date;
     lastModification : Date;

@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TourPreference } from '../model/tour-preference.model';
-import { TourPreferenceService } from '../tour-preference.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AdministrationService } from '../../administration/administration.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from '../../administration/model/user-account.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Profile } from '../../administration/model/profile.model';
 
 @Component({
   selector: 'xp-tour-preference-field',
@@ -20,10 +24,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class TourPreferenceFieldComponent implements OnInit {
   tourPreferenceForm: FormGroup;
   isEditing = false;
+  user: Profile
   formState: 'collapsed' | 'expanded' = 'collapsed';
   preference: TourPreference = {
-    id: -1,
-    touristId: -1,
     difficulty: -1,
     walkingRating: -1,
     bicycleRating: -1,
@@ -32,7 +35,7 @@ export class TourPreferenceFieldComponent implements OnInit {
     tags: [],
   };
 
-  constructor(private fb: FormBuilder, private service: TourPreferenceService) {
+  constructor(private fb: FormBuilder, private service: AdministrationService, private authService: AuthService) {
     this.tourPreferenceForm = this.fb.group({
       difficulty: [this.preference.difficulty, [Validators.required, Validators.min(1), Validators.max(5)]],
       walkingRating: [this.preference.walkingRating, [Validators.required, Validators.min(1), Validators.max(3)]],
@@ -43,15 +46,23 @@ export class TourPreferenceFieldComponent implements OnInit {
     });
   }
 
+
+  
   ngOnInit() {
-    this.service.getPreference().subscribe({
-      next: (result: TourPreference) => {
-        this.preference = result;
-        this.updateFormWithPreference();
-        console.log(this.preference);
-      },
-      error: () => {
-        // Handle errors here
+    this.authService.user$.subscribe(user => {
+      if (user) {
+        const id = user.id;
+        this.service.getByUserId().subscribe(
+          (profile: Profile) => {
+           this.user = profile; 
+           this.preference = profile.tourPreference;
+           this.updateFormWithPreference();
+          },
+          (error) => {
+            // Handle errors here
+            console.error('Error fetching profile:', error);
+          }
+        );
       }
     });
   }
@@ -97,10 +108,12 @@ export class TourPreferenceFieldComponent implements OnInit {
   }
 
   updatePreference() {
+    if (!this.user) {
+      console.error('User is undefined. Cannot update tour preference.');
+      return;
+    }
     if (this.tourPreferenceForm.valid) {
       const updatedPreference: TourPreference = {
-        id: this.preference.id,
-        touristId: this.preference.touristId,
         difficulty: this.tourPreferenceForm.get('difficulty')?.value,
         walkingRating: this.tourPreferenceForm.get('walkingRating')?.value,
         bicycleRating: this.tourPreferenceForm.get('bicycleRating')?.value,
@@ -108,16 +121,19 @@ export class TourPreferenceFieldComponent implements OnInit {
         boatRating: this.tourPreferenceForm.get('boatRating')?.value,
         tags: this.preference.tags,
       };
+      console.log("CHANGING", updatedPreference)
+      this.user.tourPreference = updatedPreference;
 
-      this.service.updatePreference(updatedPreference).subscribe({
-        next: (result: TourPreference) => {
-          console.log('Preference updated:', result);
+      this.service.updateProfile(this.user).subscribe(
+        (updatedProfileResponse: Profile) => {
           this.isEditing = false;
+          console.log('Updated Profile:', updatedProfileResponse);
         },
-        error: (error) => {
-          console.error('Error updating preference:', error);
+        (error) => {
+          // Handle errors here
+          console.error('Error updating profile:', error);
         }
-      });
+      );
     } else {
       console.error('Form is invalid. Please fill out all fields.');
     }

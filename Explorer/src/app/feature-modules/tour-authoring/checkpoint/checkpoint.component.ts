@@ -16,6 +16,7 @@ export class CheckpointComponent implements OnInit {
   selectedCheckpoint: Checkpoint;
   shouldEdit: boolean = false;
   shouldRenderCheckpointForm: boolean = false;
+  shouldRenderEncounterForm: boolean = false;
   isClickEnabled: boolean = false;
   tourId: Number;
   tour: Tour;
@@ -41,15 +42,16 @@ export class CheckpointComponent implements OnInit {
         let temporaryList: Checkpoint[] = [];
         this.service.getCheckpoints().subscribe({
           next: (results: PagedResults<Checkpoint>) => {
-            for (let i = 0; i < results.results.length; i++) {
-              const checkpoint = results.results[i];
-              results.results.forEach((cp: Checkpoint) => {
-                if (checkpoint.id == cp.id) {
-                  temporaryList.push(cp);
+              for (let i = 0; i < results.results.length; i++) {
+                const checkpoint = results.results[i];
+                for (let j = 0; j < this.tour.checkPoints.length; j++) {
+                  const cpId = this.tour.checkPoints[j];
+                  if (checkpoint.id == cpId) {
+                    temporaryList.push(checkpoint);
+                  }
                 }
-              });
 
-            }
+              }
             this.checkpoint = temporaryList;
           }
         })
@@ -67,11 +69,20 @@ export class CheckpointComponent implements OnInit {
     this.shouldRenderCheckpointForm = true;
     this.shouldEdit = true;
     this.selectedCheckpoint = checkpoint;
+    this.shouldRenderEncounterForm = false;
   }
 
   onAddClicked(): void {
     this.shouldRenderCheckpointForm = true;
     this.shouldEdit = false;
+    this.shouldRenderEncounterForm = false;
+  }
+
+  onAddEncounter(checkpoint: Checkpoint): void {
+    this.shouldRenderEncounterForm = true;
+    this.shouldEdit = false;
+    this.shouldRenderCheckpointForm = false;
+    this.selectedCheckpoint = checkpoint;
   }
 
   deleteCheckpoint(id: number): void {

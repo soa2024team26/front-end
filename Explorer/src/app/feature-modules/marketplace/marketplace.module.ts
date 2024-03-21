@@ -3,10 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TourReviewComponent } from './tour-review/tour-review.component';
 
 import { ApplicationReviewFormComponent } from './application-review-form/application-review-form.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SaleFormComponent } from './sale-form/sale-form.component';
+import { EditSaleComponent } from './edit-sale/edit-sale.component';
 
 
 
@@ -14,12 +18,17 @@ import { ApplicationReviewFormComponent } from './application-review-form/applic
   declarations: [
     TourReviewFormComponent,
     TourReviewComponent,
-    ApplicationReviewFormComponent
+    ApplicationReviewFormComponent,
+    ShoppingCartComponent,
+    SaleFormComponent,
+    EditSaleComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
   ],
   exports: [
    TourReviewFormComponent,

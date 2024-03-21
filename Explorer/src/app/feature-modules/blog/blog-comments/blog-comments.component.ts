@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BlogComment } from '../model/blog-comment.model';
 import { BlogService } from '../blog.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -17,6 +17,7 @@ export class BlogCommentsComponent implements OnInit {
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
   userNames: { [key: number]: string } = {};
+  @Input() blogId: number | null;
   
   constructor(private service: BlogService, private authService: AuthService) { }
 
@@ -24,7 +25,7 @@ export class BlogCommentsComponent implements OnInit {
     this.getBlogComment();
   }
   
-  deleteBlogComment(id: number): void {
+  deleteBlogComment(id: string): void {
     this.service.deleteBlogComment(id).subscribe({
       next: () => {
         this.getBlogComment();
@@ -60,6 +61,7 @@ export class BlogCommentsComponent implements OnInit {
   onAddClicked(): void {
     this.shouldEdit = false;
     this.shouldRenderBlogCommentForm = true;
+    
   }
 
   getUserName(userId: number): string {

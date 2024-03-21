@@ -33,13 +33,14 @@ export class RegistrationComponent {
       password: this.registrationForm.value.password || "",
       profilePicture: "/",
       biography: "/",
-      motto: "/"
+      motto: "/",
+      questionaireDone: false
     };
 
     if (this.registrationForm.valid) {
       this.authService.register(registration).subscribe({
         next: () => {
-          this.router.navigate(['home']);
+          this.router.navigate(['registration-completed']);
         },
       });
     }

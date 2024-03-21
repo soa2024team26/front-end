@@ -1,0 +1,90 @@
+.done-button {
+  margin-top: 30px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.done-button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fixed-width-container {
+  display: inline-block;
+  width: 20vw;
+}
+
+.fixed-width-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fixed-textarea {
+  resize: none;
+}
+
+.action-button-file{
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: auto;
+}
+
+.action-button-file:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+.thumbnail {
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: auto; 
+}
+
+.form-container {
+  max-width: 400px;
+  width: 100%;
+}
+
+p {
+  font-size: 17px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.center-class {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+}

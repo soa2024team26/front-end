@@ -17,10 +17,9 @@
                 <tr *ngFor="let bc of blogComments">
                     <td>{{ bc.text }}</td>
                     <td>{{ getUserName(bc.userId) }}</td> <!-- Prikaz korisničkog imena -->
+                    <td>                    
                     <td>
-                    
-                    <td>
-                        <button color="accent" (click)="deleteBlogComment(bc.id || 0)" mat-icon-button>
+                        <button color="accent" (click)="deleteBlogComment(bc.id ||'')" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
                         <button color="primary" (click)="onEditClicked(bc)" mat-icon-button>

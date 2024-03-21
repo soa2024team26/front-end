@@ -41,7 +41,14 @@ export class PictureForm2Component {
       profilePicture: 'https://localhost:44333/Images/' + this.currentFile.name || "",
       biography: this.profile.biography || "",
       motto: this.profile.motto || "",
-      isActive: true
+      isActive: true,
+      follows: this.profile.follows,
+      tourPreference: this.profile.tourPreference,
+      questionnaireDone: this.profile.questionnaireDone,
+      xp:this.profile.xp,
+      isFirstPurchased:false,
+      numberOfCompletedTours: this.profile.numberOfCompletedTours,
+      requestSent: this.profile.requestSent
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;
@@ -61,6 +68,8 @@ export class PictureForm2Component {
     this.service.updateProfile2(profile).subscribe({
       next: (_) => {
         this.profileUpdated.emit()
+        
+        window.location.reload();
       }
     })
   }

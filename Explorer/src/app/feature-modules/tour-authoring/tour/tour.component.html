@@ -9,8 +9,7 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Difficulty</th>
-                    <th>Tags</th>
-                             
+                    <th>Image</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -20,7 +19,9 @@
                     <td>{{t.name}}</td>
                     <td>{{t.description}}</td>
                     <td>{{t.difficulty}}</td>
-                    <td>{{t.tags}}</td>
+                    <div class="thumbnail">
+                        <img src="{{t.image}}" alt="" srcset="">
+                    </div>
                     
                     <td>
                         <button color="accent" (click)="deleteTour(t.id || 0)" mat-icon-button>

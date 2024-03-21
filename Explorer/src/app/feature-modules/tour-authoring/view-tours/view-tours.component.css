@@ -3,80 +3,113 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  margin-left: 30px;
 }
 
-.card {
-  width: 220px;
-  height: 340px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
-  margin-bottom: 20px;
-  background: url('https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg') no-repeat center center;
-  background-size: cover;
-  border: 3px solid rgb(56, 28, 117); /* Add a purple border */
-}
-
-
-.details > p {
-  font-size: 0.8em;
-  margin-top: 0.5em;
-  color: transparent; /* Hide the rest of the text */
-}
-
-.details > label {
-  font-weight: bold;
-}
-
-.details {
-  color: white;
-  box-shadow: 0 3px 10px rgb(56, 28, 117);
-  width: 100%;
-  background-color: rgb(56, 28, 117);
-  position: absolute;
-  bottom: 0;
-  height: 2.6em;
-  transition: height 0.5s ease-in-out;
-  padding: 0.6em;
-  overflow: hidden;
-  box-sizing: border-box; /* Include padding and border in the element's width and height */
-}
-
-.card:hover > .details {
+.bundle:hover .details {
   height: 80%;
 }
 
-.card:hover > .details > p {
-  color: white; /* Make the rest of the text visible on hover */
-  overflow: hidden; /* Hide any overflow */
+.bundle {
+  width: 220px;
+  height: 300px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-bottom: 20px;
+  background-size: cover; /* Set background-size to cover */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent background image from repeating */
+  border-radius: 10px;
 }
-.view-button {
+
+
+
+.bundle .details {
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 3.5em;
+  transition: height 0.5s ease-in-out;
+  padding: 0.6em;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 10px;
+  backdrop-filter: blur(19px); /* Adjust the blur value as needed */
+}
+
+
+
+.bundle .details > label {
+  font-weight: bold;
+}
+
+
+.bundle .details > p {
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
+
+.bundle .details .button-container {
+  margin-top: 10px;
+}
+
+.bundle .view-button {
   display: inline-block;
   padding: 10px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 16;
-  color: #2E003D;
+  font-size: 16px;
+  color:  rgb(56, 28, 117);
   background-color: #ffffff;
+  border: 0.2vw solid rgb(56, 28, 117);
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  margin-bottom: 4px; 
+}
+
+.bundle .view-button:hover {
+  background-color:  rgb(56, 28, 117);;
+  color: #ffffff;
+}
+
+.view-button-activated {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #ffffff;
+  background-color: #6C0277;
   border: 0.2vw solid #2E003D;
   border-radius: 0.375vw;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
 }
-.button-container {
-  text-align: center;
-  margin: 5px;
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px; /* Add margin between buttons and cart */
+  margin-left: 80px;
+  margin-top: 45px;
 }
-.view-button:hover {
-  background-color: #2E003D;
+
+.action-button {
+  margin-top: 5px; /* Add some spacing between the buttons */
+  margin-right: 8px; /* Adjust margin to start buttons at the same x-coordinate */
+  font-size: 14px; /* Adjust the font size */
+  padding: 8px 12px; /* Adjust padding for the buttons */
+  border: 0.2vw solid rgb(56, 28, 117);
+}
+
+.action-button:hover {
+  background-color:  rgb(56, 28, 117);;
   color: #ffffff;
-}
-.header {
-  font-size: 30px;
-  color: #2E003D; /* Text color */
-  text-align: center; /* Center the text */
-  margin: 20px; /* Add space below the header */
-  font-weight: bold; /* Make the text bold if desired */
-  text-transform: uppercase; /* Convert text to uppercase if desired */
 }
 
 .tour-list {
@@ -90,8 +123,20 @@
   height: 100%;
   overflow-y: auto;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
+  flex-direction: column; /* Stack items vertically */ 
+}
+
+.slider-toggle-container {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  text-align: center;
+}
+i {
+  /* Your icon styles here */
+  font-size: 32px; /* Adjust the size as needed */
+  cursor: pointer; /* Add a pointer cursor for interaction */
 }
 
 .map-container {
@@ -122,3 +167,103 @@
   overflow: hidden;
   box-sizing: border-box; /* Include padding and border in the element's width and height */
 }
+.cart-button {
+  display: inline-block;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #2E003D;
+  background-color: #ffffff;
+  border: 0.2vw solid #2E003D;
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: -420px;
+  margin-right: 30px;
+
+  position: absolute; /* Postavlja apsolutni položaj */
+  top: 485px; /* Postavlja na vrh stranice */
+  right: 10px; /* Postavlja na desnu stranu stranice */
+}
+
+.cart-button i.fas.fa-shopping-cart::before {
+  margin-right: 5px; /* Margina sa desne strane ikone */
+  font-size: 20px; /* Veličina ikone korpe */
+}
+
+.cart-button:hover {
+  background-color: #2E003D;
+  color: #ffffff;
+}
+
+.cart-button:hover .numberOfItems {
+  position: absolute;
+  bottom: 7px;
+  left: 25px;
+  background: #2E003D;
+  color: 2E003D;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  font-size: 10px;
+  text-align: center;
+  line-height: 12px;
+  font-weight: 500;
+  border: 1px solid white; 
+}
+
+.numberOfItems {
+  position: absolute;
+  bottom: 7px;
+  left: 25px;
+  background: white;
+  color: 2E003D;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  font-size: 10px;
+  text-align: center;
+  line-height: 12px;
+  font-weight: 500;
+  border: 1px solid #2E003D;
+}
+
+.numberOfItems:hover {
+  position: absolute;
+  bottom: 7px;
+  left: 25px;
+  background: #2E003D;
+  color: 2E003D;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  font-size: 10px;
+  text-align: center;
+  line-height: 12px;
+  font-weight: 500;
+  border: 1px solid white;
+}
+
+.favorite-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1; /* Postavite na veći indeks od ostatka sadržaja kartice da bi bilo iznad */
+}
+
+.favorite-heart i {
+  font-size: 24px;
+  color: white; /* Promenite boju na belu kada nije kliknuto */
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.favorite-heart i.active {
+  color: red; /* Boja srca kada je kliknuto */
+}
+
+.active-heart {
+  color: red; /* Promenite boju u željenu boju */
+}
+
