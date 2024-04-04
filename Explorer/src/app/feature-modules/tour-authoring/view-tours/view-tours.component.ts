@@ -224,11 +224,12 @@ export class ViewToursComponent implements OnInit {
       const result: PagedResults<Tour> | undefined = await this.service.getTours().toPromise();
 
       console.log("RESULTS")
-      console.log(result)
+      console.log(result?.results)
   
       if (result) {
-        this.allTours = result.results.filter(tour => tour.status === 1);
-        this.tours = result.results.filter(tour => tour.status === 0);
+        // this.allTours = result.results.filter(tour => tour.status === 1);
+        // this.tours = result.results.filter(tour => tour.status === 0);
+        this.tours = result.results;
         this.sortToursByPointsDescending();
   
       
