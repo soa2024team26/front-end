@@ -18,41 +18,41 @@ export class TourExecutionService {
 
 
   getTourExecution(userId: Number): Observable<TourExecution> {
-    return this.http.get<TourExecution>('https://localhost:44333/api/tourexecution/get/' + userId);
+    return this.http.get<TourExecution>('http://localhost:8086/api/tourexecution/get/' + userId);
   }
   completeTour(id?: Number): Observable<TourExecution> {
-    return this.http.post<TourExecution>('https://localhost:44333/api/tourexecution/complete/' + id, {});
+    return this.http.post<TourExecution>('http://localhost:8086/api/tourexecution/complete/' + id, {});
   }
   abandonTour(id?: Number): Observable<TourExecution> {
-    return this.http.post<TourExecution>('https://localhost:44333/api/tourexecution/abandon/' + id, {});
+    return this.http.post<TourExecution>('http://localhost:8086/api/tourexecution/abandon/' + id, {});
   }
   updateTourExecution(tourExecution: TourExecution): Observable<TourExecution> {
-    return this.http.put<TourExecution>('https://localhost:44333/api/tourexecution/' + tourExecution.id, tourExecution)
+    return this.http.put<TourExecution>('http://localhost:8086/api/tourexecution/' + tourExecution.id, tourExecution)
   }
   completeCheckpoint(id: number, checkpoints: Checkpoint[]): Observable<TourExecution> {
-    return this.http.put<TourExecution>('https://localhost:44333/api/tourexecution/checkpointComplete/' + id, checkpoints);
+    return this.http.put<TourExecution>('http://localhost:8086/api/tourexecution/checkpointComplete/' + id, checkpoints);
   }
   getSecrets(cpId:number){
-    return this.http.get<Secret>('https://localhost:44333/api/tourexecution/getSecret/' + cpId);
+    return this.http.get<Secret>('http://localhost:8086/api/tourexecution/getSecret/' + cpId);
   }
   getEncounters():Observable<PagedResults<Encounter>>{
-    return this.http.get<PagedResults<Encounter>>('https://localhost:44333/api/administrator/encounter');
+    return this.http.get<PagedResults<Encounter>>('http://localhost:8086/api/administrator/encounter');
   }
   getActiveEncounters():Observable<PagedResults<ActiveEncounter>>{
-    return this.http.get<PagedResults<ActiveEncounter>>('https://localhost:44333/api/activeEncounter');
+    return this.http.get<PagedResults<ActiveEncounter>>('http://localhost:8086/api/activeEncounter');
   }
   updateEncounter(encounter: Encounter): Observable<Encounter> {
-    return this.http.put<Encounter>('https://localhost:44333/api/administrator/encounter', encounter)
+    return this.http.put<Encounter>('http://localhost:8086/api/administrator/encounter', encounter)
   }
   postActiveEncounters(activeEncounter:ActiveEncounter):Observable<ActiveEncounter>{
-    return this.http.post<ActiveEncounter>('https://localhost:44333/api/activeEncounter',activeEncounter);
+    return this.http.post<ActiveEncounter>('http://localhost:8086/api/activeEncounter',activeEncounter);
   }
   updateActiveEncounters(activeEncounter:ActiveEncounter):Observable<ActiveEncounter>{
-    return this.http.put<ActiveEncounter>('https://localhost:44333/api/activeEncounter',activeEncounter);
+    return this.http.put<ActiveEncounter>('http://localhost:8086/api/activeEncounter',activeEncounter);
   }
   
   getTourExecutionByTourAndUser(tourId: number, userId: number): Observable<PagedResults<TourExecution>>{
-    return this.http.get<PagedResults<TourExecution>>('https://localhost:44333/api/tourexecution/'+ tourId +'/' + userId);
+    return this.http.get<PagedResults<TourExecution>>('http://localhost:8086/api/tourexecution/'+ tourId +'/' + userId);
   }
 
 }
