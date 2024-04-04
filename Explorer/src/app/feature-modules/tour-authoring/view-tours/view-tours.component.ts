@@ -102,6 +102,9 @@ export class ViewToursComponent implements OnInit {
     this.calculateAverageGrades();
     this.calculateTourPoints();
     this.loadWishlist();
+
+    console.log("TOURS")
+    console.log(this.tours)
     if (this.authService.user$.value) {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
@@ -216,34 +219,25 @@ export class ViewToursComponent implements OnInit {
     this.tours = tourWithRankings.map(item => item.tour);
   }
   
-  
   async getTours(): Promise<void> {
     try {
       const result: PagedResults<Tour> | undefined = await this.service.getTours().toPromise();
 
+      console.log("RESULTS")
+      console.log(result)
+  
       if (result) {
         this.allTours = result.results.filter(tour => tour.status === 1);
-        this.tours = result.results.filter(tour => tour.status === 1);
+        this.tours = result.results.filter(tour => tour.status === 0);
         this.sortToursByPointsDescending();
-
+  
+      
         if (!this.isActiveTourSearchActive && this.isNearbyTourSearchActive) {
           this.handleSearchButtonClick();
         }
-
-        if (this.isActiveTourSearchActive) {
-          const tourIds: (number | undefined)[] = this.tours.map((tour: Tour) => tour.id);
-          
-          if (tourIds.every(Boolean)) {
-            this.service.getActiveTours(tourIds).subscribe(
-              (pagedResults: PagedResults<Tour>) => {
-                this.tours = pagedResults.results;
-              },
-              error => {
-                console.error('Error:', error);
-              }
-            );
-          }
-        }
+  
+        // Removed the block for fetching active tours
+  
       } else {
         // Handle the case where result is undefined
       }
@@ -251,6 +245,7 @@ export class ViewToursComponent implements OnInit {
       // Handle errors if needed
     }
   }
+  
   selectTour(tour: Tour): void {
     this.selectedTour = tour;
   }
