@@ -31,7 +31,7 @@ export class BlogFormComponent {
   
   blogForm: FormGroup;
   BlogCategory = BlogCategory;
-  private blogId: number | null = null;
+  private blogId: string | null = null;
   private blogTourId: number | null = null;
   selectedCategory: BlogCategory;
   tourExecution: TourExecution | null;
@@ -47,12 +47,12 @@ export class BlogFormComponent {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       const tourId = params.get('tourId')
-      this.blogId = id ? +id : null;
+      this.blogId = id ? id : null;
       this.blogTourId = tourId? +tourId : null;
       if (id) {
         this.shouldEdit = true;
 
-        this.service.getBlog(this.blogId || 0).subscribe((blog) => {
+        this.service.getBlog(this.blogId || '').subscribe((blog) => {
           if (blog.image) {
             this.currentFileUrl = blog.image;
           }
@@ -69,7 +69,7 @@ export class BlogFormComponent {
     this.route.paramMap.subscribe((params) => {
       const blogId = params.get('id');
       if (blogId) {
-          this.blogId = +blogId; // Konvertujte string u broj
+          this.blogId = blogId; // Konvertujte string u broj
           // Poziv servisa da dobijete podatke o blogu na osnovu ID-a
           this.service.getBlog(this.blogId).subscribe((blog) => {
               // Postavite vrednosti u formi za uređivanje
@@ -272,65 +272,62 @@ export class BlogFormComponent {
     }
   }
 
-  
-  
-  async updateBlog(): Promise<void> {
-    const userId = this.authService.user$.value.id;
-    const username = this.authService.user$.value.username;
-    if (this.blogId !== null) {
-      if (!this.currentFile) {
-        const currentBlog = await this.service.getBlog(this.blogId).toPromise();
-        const blog: Blog = {
-          userId : userId,
-          username: username,
-          title: this.blogForm.value.title || "",
-          description: this.blogForm.value.description || "",
-          creationTime: (currentBlog?.creationTime || new Date()) as Date,
-          status: BlogStatus.Published,
-          id: this.blogId,
-          image: this.blogForm.value.image || "",
-          category: this.selectedCategory,
-        };
-        this.service.updateBlog(blog).subscribe({
-          next: (_) => {
-            this.blogUpdated.emit();
-            this.router.navigate(['/blog-single-post', blog.id]).then(() => {
-              // Scroll na vrh stranice nakon navigacije
-              this.viewportScroller.scrollToPosition([0, 0]);
-            });
-          }
-        });
-      } else {
-        const currentBlog = await this.service.getBlog(this.blogId).toPromise();
-        const blog: Blog = {
-          userId : userId,
-          username: username,
-          title: this.blogForm.value.title || "",
-          description: this.blogForm.value.description || "",
-          creationTime: (currentBlog?.creationTime || new Date()) as Date,
-          status: BlogStatus.Published,
-          id: this.blogId,
-          image: 'https://localhost:44333/Images/' + this.currentFile.name,
-          category: this.selectedCategory,
-        };
-        await this.service.upload(this.currentFile).subscribe({
-          next: (value) => {
-  
-          },
-          error: (value) => {
-  
-          }, complete: () => {
-          },
-        });
-        this.service.updateBlog(blog).subscribe({
-          next: (_) => { this.blogUpdated.emit(), this.router.navigate(['/blog-single-post', blog.id]).then(() => {
+async updateBlog(): Promise<void> {
+  const userId = this.authService.user$.value.id;
+  const username = this.authService.user$.value.username;
+  if (this.blogId !== null) {
+    if (!this.currentFile) {
+      const blog: Blog = {
+        userId : userId,
+        username: username,
+        title: this.blogForm.value.title || "",
+        description: this.blogForm.value.description || "",
+        creationTime: new Date('2023-10-22T10:30:00'),
+        status: BlogStatus.Published,
+        id: this.blogId,
+        image: this.blogForm.value.image || "",
+        category: this.selectedCategory,
+      };
+      this.service.updateBlog(blog).subscribe({
+        next: (_) => {
+          this.blogUpdated.emit();
+          this.router.navigate(['/blog-single-post', blog.id]).then(() => {
             // Scroll na vrh stranice nakon navigacije
             this.viewportScroller.scrollToPosition([0, 0]);
-          });}
-        });}
-      
-    }
-  }
-  
-}
+          });
+        }
+      });
+    } else {
+      const blog: Blog = {
+        userId : userId,
+        username: username,
+        title: this.blogForm.value.title || "",
+        description: this.blogForm.value.description || "",
+        creationTime: new Date('2023-10-22T10:30:00'),
+        status: BlogStatus.Published,
+        id: this.blogId,
+        image: 'https://localhost:44333/Images/' + this.currentFile.name,
+        category: this.selectedCategory,
+      };
+      await this.service.upload(this.currentFile).subscribe({
+        next: (value) => {
 
+        },
+        error: (value) => {
+
+        }, complete: () => {
+        },
+      });
+      this.service.updateBlog(blog).subscribe({
+        next: (_) => { this.blogUpdated.emit(), this.router.navigate(['/blog-single-post', blog.id]).then(() => {
+          // Scroll na vrh stranice nakon navigacije
+          this.viewportScroller.scrollToPosition([0, 0]);
+        });}
+      });}
+    
+  }
+}
+  
+  
+
+}

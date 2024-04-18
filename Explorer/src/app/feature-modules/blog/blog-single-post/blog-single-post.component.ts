@@ -25,7 +25,7 @@ import { ViewportScroller } from '@angular/common';
 export class BlogSinglePostComponent implements OnInit {
   blogPost: Blog;
   blogSinglePost: BlogSinglePostComponent;
-  blogId: number;
+  blogId: string;
   comments: BlogComment[] = [];
   rating: Rating;
   upvoted: boolean = false;
@@ -46,18 +46,26 @@ ngOnInit(): void {
   this.route.paramMap.subscribe((params) => {
     const blogId = params.get('id');
     if (blogId) {
-      this.blogId = +blogId;
+      this.blogId = blogId; 
       this.blogService.getBlog(this.blogId).subscribe((data: Blog) => {
         this.blogPost = data;
-       // this.getCommentsByBlogId(this.blogId);
-       if (blogId) {
         this.getCommentsByBlogId(this.blogId);
-        this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) => {
+        if(blogId){
+          this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) =>{
+            this.ratingCount = ratingCount.count;
+            this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
+            this.similarBlogs = similarBlogs;
+          });
+        });
+        }
+       /* if (blogId) {
+        // this.getCommentsByBlogId(this.blogId);
+        /* this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) =>{
           this.ratingCount = ratingCount.count;
           this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
           this.similarBlogs = similarBlogs;
         });
-        if(this.blogPost.tourReport){
+        /* if(this.blogPost.tourReport){
           this.touristDistance = this.blogPost.tourReport.length;
           this.tourService.getCheckpointsByVisitedCheckpoints(this.blogPost.tourReport.checkpointsVisited).subscribe({
             next: (result: PagedResults<Checkpoint>) =>{
@@ -69,16 +77,16 @@ ngOnInit(): void {
               this.equipment = result.results;
             }
           })
-        }
-      });
-      } else {
+        } 
+      }); */
+/*       } else {
         // Handle the case when there is no valid tour ID in the URL.
-      }
+      } */
       });
     }
   });
   }
-  async getCommentsByBlogId(blogId: number): Promise<void> {
+  async getCommentsByBlogId(blogId: string): Promise<void> {
     try {
       const result = await this.blogService.getCommentsByBlogId(blogId).toPromise();
   
@@ -126,7 +134,7 @@ ngOnInit(): void {
             blogId: this.blogId
           };
       
-          this.blogService.addRating(rating).subscribe({
+          this.blogService.addRating(rating, this.blogId).subscribe({
             next: () => {
               this.updateRatingCount();
             },
@@ -159,7 +167,7 @@ ngOnInit(): void {
             blogId: this.blogId
           };
       
-          this.blogService.addRating(rating).subscribe({
+          this.blogService.addRating(rating, this.blogId).subscribe({
             next: () => {
               this.updateRatingCount();
             },
@@ -173,7 +181,7 @@ ngOnInit(): void {
   }
 
   sendRating() {
-    this.blogService.addRating(this.rating).subscribe(
+    this.blogService.addRating(this.rating, this.blogId).subscribe(
       response => {
       },
       error => {
@@ -193,23 +201,12 @@ ngOnInit(): void {
     })
   }
 
-  onReadMoreClicked(id: number){
+  onReadMoreClicked(id: string){
     this.router.navigate(['blog-single-post', id]).then(() => {
       // Scroll na vrh stranice nakon navigacije
       this.viewportScroller.scrollToPosition([0, 0]);
     });
   }
-
-  isTourReportDefined(blog: Blog | undefined){
-    if(blog && blog.tourReport != undefined){
-      return true;
-    }
-    return false;
-  }
-
-onCommentAdded(comment: BlogComment): void {
-  this.comments.push(comment); 
-}
 
 }
 

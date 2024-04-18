@@ -33,7 +33,7 @@ export class TourProblemService {
   }
 
   getTourProblemAdministrator(id:number) : Observable<TourProblem>{
-    return this.http.get<TourProblem>('https://localhost:44333/api/administrator/tour-problem/' + id);
+    return this.http.get<TourProblem>('http://localhost:8086/api/administrator/tour-problem/' + id);
   } 
 
 
@@ -66,7 +66,7 @@ export class TourProblemService {
   } 
 
   getTourProblemForAuthor(id:number) : Observable<TourProblem>{
-    return this.http.get<TourProblem>('https://localhost:44333/api/author/tour-problem/' + id);
+    return this.http.get<TourProblem>('http://localhost:8086/api/author/tour-problem/' + id);
   } 
   
     //Tourist HTTP Request Methods
@@ -108,12 +108,12 @@ export class TourProblemService {
 
   // returns all responses targeted towards the tourist the id belongs to
   getTourProblemResponsesForTourist(id: number): Observable<PagedResults<TourProblemResponse>>{
-    return this.http.get<PagedResults<TourProblemResponse>>('https://localhost:44333/api/tourist/tour-problem/tourist/' + id + '/responses');
+    return this.http.get<PagedResults<TourProblemResponse>>('http://localhost:8086/api/tourist/tour-problem/tourist/' + id + '/responses');
   }
 
   // returns all responses targeted towards the author the id belongs to
   getTourProblemResponsesForAuthor(id: number): Observable<PagedResults<TourProblemResponse>>{
-    return this.http.get<PagedResults<TourProblemResponse>>('https://localhost:44333/api/author/tour-problem/author/' + id + '/responses');
+    return this.http.get<PagedResults<TourProblemResponse>>('http://localhost:8086/api/author/tour-problem/author/' + id + '/responses');
   }
 
   // // returns all responses targeted towards the user the id belongs to
@@ -122,7 +122,7 @@ export class TourProblemService {
   // }
 
   getTour(id: Number): Observable<Tour> {
-    return this.http.get<Tour>('https://localhost:44333/api/author/tour/' + id);
+    return this.http.get<Tour>('http://localhost:8086/api/author/tour/' + id);
   }
 }
 

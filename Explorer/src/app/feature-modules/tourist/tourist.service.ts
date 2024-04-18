@@ -17,19 +17,19 @@ export class TouristService {
   constructor(private http: HttpClient) { }
 
   getPurchaseReportsByTouristId(userId: number): Observable<PurchaseReport[]> {
-    return this.http.get<PurchaseReport[]>(`https://localhost:44333/api/tourist/purchaseReport/byTourist/${userId}`);
+    return this.http.get<PurchaseReport[]>(`http://localhost:8086/api/tourist/purchaseReport/byTourist/${userId}`);
   }
 
   getTourById(tourId: number): Observable<Tour> {
-    return this.http.get<Tour>(`https://localhost:44333/api/author/tour/${tourId}`);
+    return this.http.get<Tour>(`http://localhost:8086/api/author/tour/${tourId}`);
   }
 
   createQuestion(question: Question): Observable<Question> {
-    return this.http.post<Question>('https://localhost:44333/api/question', question);
+    return this.http.post<Question>('http://localhost:8086/api/question', question);
   }
 
   getAnswersByCategory(category: AnswerCategory): Observable<Answer[]> {
-    return this.http.get<Answer[]>(`https://localhost:44333/api/answer/category/${category}`);
+    return this.http.get<Answer[]>(`http://localhost:8086/api/answer/category/${category}`);
   }
 
   getQuestionTextByQuestionId(questionId: number): Observable<string> {
