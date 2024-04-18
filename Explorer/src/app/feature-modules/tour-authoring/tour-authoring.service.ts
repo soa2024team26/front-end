@@ -139,16 +139,18 @@ export class TourAuthoringService {
   }
 
   getTours() : Observable<PagedResults<Tour>> {
-    return this.http.get<PagedResults<Tour>>('http://localhost:8086/api/author/tour?page=0&pageSize=0');
+
+    return this.http.get<PagedResults<Tour>>('http://localhost:8080/api/author/tour?page=0&pageSize=0');
   }
 
   getTour(id: Number): Observable<Tour> {
-    return this.http.get<Tour>('http://localhost:8086/api/author/tour/' + id);
+    return this.http.get<Tour>('http://localhost:8080/api/author/tour/' + id);
   }
 
   addTour(tour: Tour) : Observable<Tour>{
     console.log(tour);
-    return this.http.post<Tour>('http://localhost:8086/api/author/tour' , tour)
+    return this.http.post<Tour>('http://localhost:8080/api/author/tour' , tour)
+
   }
 
 
