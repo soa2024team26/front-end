@@ -25,7 +25,7 @@ export class EncounterService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `https://localhost:44333/api/administrator/encounter/UploadFile`, formData, {
+    const req = new HttpRequest('POST', `http://localhost:8086/api/administrator/encounter/UploadFile`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
