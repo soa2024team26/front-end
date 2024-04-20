@@ -19,7 +19,7 @@ export class TourReviewComponent implements OnInit {
   shouldRenderTourReviewForm: boolean = false;
   shouldEdit: boolean = false;
   selectedTourReview: TourReview;
-  userNames: { [key: number]: string } = {};
+  userNames: { [key: string]: string } = {};
   showTable: boolean = false; // Initialize to hide the table
   currentUserId = this.authService.user$.value.id;
   tourId : number;
@@ -129,7 +129,7 @@ export class TourReviewComponent implements OnInit {
   }
   
 
-  getUserName(userId: number): string {
+  getUserName(userId: string): string {
     if (this.userNames[userId]) {
       return this.userNames[userId];
     }

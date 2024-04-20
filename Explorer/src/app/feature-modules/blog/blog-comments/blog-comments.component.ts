@@ -16,7 +16,7 @@ export class BlogCommentsComponent implements OnInit {
   selectedBlogComment: BlogComment;
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
-  userNames: { [key: number]: string } = {};
+  userNames: { [key: string]: string } = {};
   @Input() blogId: number | null;
   
   constructor(private service: BlogService, private authService: AuthService) { }
@@ -64,7 +64,7 @@ export class BlogCommentsComponent implements OnInit {
     
   }
 
-  getUserName(userId: number): string {
+  getUserName(userId: string): string {
     if (this.userNames[userId]) {
       return this.userNames[userId];
     }

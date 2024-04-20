@@ -19,7 +19,7 @@ export class NotificationsOverviewComponent implements OnInit {
   notifications: TourProblemResponse[] = [];
   currentUser: User;
   showNotifications: boolean = false;
-  mappedUsername: { [key: number]: string } = {};
+  mappedUsername: { [key: string]: string } = {};
   publicRequests: PublicRequest[] =[];
   paymentNotifications: PaymentNotification[] = [];
 
@@ -84,7 +84,7 @@ export class NotificationsOverviewComponent implements OnInit {
     
   }
 
-  getMappedUsername(userId: number): Observable<string> {
+  getMappedUsername(userId: string): Observable<string> {
     return this.authService.getUsername(userId).pipe(
         map((userData: any) => {
             if (userData && userData.username) {

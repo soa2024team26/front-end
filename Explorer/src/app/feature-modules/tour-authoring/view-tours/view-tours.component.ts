@@ -50,11 +50,11 @@ export class ViewToursComponent implements OnInit {
   searchResults: Tour[] = [];
   selectedTour: Tour | null = null; // Store the selected tour
   tourAverageGrades: { [tourId: number]: number } = {};
-  shoppingCartId: Number;
+  shoppingCartId: string;
   shoppingCart: ShoppingCart;
   numberOfItems: number;
   orderItems: OrderItem[];
-  userId: number;
+  userId: string;
   isLogged: boolean;
   sliderState = 'small';
   user: Profile;

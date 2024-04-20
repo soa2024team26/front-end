@@ -25,7 +25,7 @@ export class AppUserClubsComponent {
     if (this.selectedProfile === undefined){
       console.log("No one is logged in.")
     }
-    const profId=this.selectedProfile.userId || -1;
+    const profId=this.selectedProfile.userId || "";
     this.clubService.getClubs().subscribe({
       next: (result: PagedResults<Club>) => {
         this.clubs = result.results.filter(club =>
@@ -52,7 +52,7 @@ export class AppUserClubsComponent {
       return;
     }
 
-    const profId = this.selectedProfile.userId || -1;
+    const profId = this.selectedProfile.userId || "";
     this.clubService.getClubs().subscribe({
       next: (result: PagedResults<Club>) => {
         this.clubs = result.results.filter(club =>

@@ -1,7 +1,7 @@
 export interface ClubRequest {
     id?: number,
-    clubId?: number,
-    accountId: number,
+    clubId?: string,
+    accountId: string,
     requestStatus: number,
     requestType: number
 }

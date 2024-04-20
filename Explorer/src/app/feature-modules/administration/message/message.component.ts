@@ -13,7 +13,7 @@ export class MessageComponent implements OnInit {
   loggedInProfile: Profile | null = null;
   messages: Message[] = [];
   profiles: Profile[];
-  senderProfiles: { [senderId: number]: Profile } = {}; //dodato
+  senderProfiles: { [senderId: string]: Profile } = {}; //dodato
   isChatOpen = false;
 
   toggleChat() {

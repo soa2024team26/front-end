@@ -30,7 +30,7 @@ export class ClubsOverviewComponent implements OnInit {
     });
   }
 
-  deleteClub(id: number): void {
+  deleteClub(id: string): void {
     this.service.deleteClub(id).subscribe({
       next: () => {
         this.getClubs();

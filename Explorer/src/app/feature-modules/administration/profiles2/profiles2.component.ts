@@ -13,7 +13,7 @@ export class Profiles2Component implements OnInit {
   profiles: Profile[] = [];
   loggedInProfile: Profile | null = null; // Store the logged-in user's profile
   follows: Profile[] = [];
-  followedProfiles: { [key: number]: boolean } = {};
+  followedProfiles: { [key: string]: boolean } = {};
   profileFollowed="";
   alreadyFollow: any;
 

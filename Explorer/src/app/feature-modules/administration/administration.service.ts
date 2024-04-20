@@ -71,8 +71,8 @@ export class AdministrationService {
     return this.http.put<User>(environment.apiHost + 'administration/userAccounts/' + user.id, user);
   }
 
-  getUserAccountById(id: number): Observable<User> {
-    return this.http.get<User>(environment.apiHost + 'administration/userAccounts/' + id);
+  getUserAccountById(id: string): Observable<User> {
+    return this.http.get<User>('http://localhost:8080/api/administration/userAccounts/' + id);
   }
   getUserAccountByToken(token: string): Observable<User> {
     return this.http.get<User>(environment.apiHost + 'administration/userAccounts/token/' + token);
@@ -82,7 +82,7 @@ export class AdministrationService {
     return this.http.put<User>(url, user);
   }
   // PROFILE
-  getByProfileUserId(id: number): Observable<Profile> {
+  getByProfileUserId(id: string): Observable<Profile> {
     return this.http.get<Profile>('http://localhost:8086/api/administration/profile/by-id/' + id);
   }
   
@@ -156,7 +156,7 @@ export class AdministrationService {
 
 
   // FOLLOW
-  alreadyFollows(profileId: number, followerId: number): Observable<boolean> {
+  alreadyFollows(profileId: string, followerId: string): Observable<boolean> {
     return this.http.get<boolean>(environment.apiHost + 'administration/profile/already-follows/' + profileId + '/' + followerId);
   }
 
@@ -256,7 +256,7 @@ export class AdministrationService {
   }
 
   // USER
-  getUserById(id: number): Observable<User> {
+  getUserById(id: string): Observable<User> {
     return this.http.get<User>('http://localhost:8086/api/users/whole/' + id);
   }
 

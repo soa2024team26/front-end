@@ -1,7 +1,7 @@
 import { TourPreference } from "../../tour-preference/model/tour-preference.model";
 
 export interface User {
-    id: number;
+    id: string;
     username: string;
     password: string;
     role: UserRole;

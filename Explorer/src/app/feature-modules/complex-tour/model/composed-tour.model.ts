@@ -13,6 +13,6 @@ export interface ComposedTour {
     footTime: Number,
     bicycleTime: Number,
     carTime: Number,
-    authorId: number,
+    authorId: string,
     publishTime: string
 }

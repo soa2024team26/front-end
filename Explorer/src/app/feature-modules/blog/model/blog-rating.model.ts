@@ -1,5 +1,5 @@
 export interface Rating {
     isUpvote : boolean;
-    userId : number;
+    userId : string;
     blogId : string;
 }

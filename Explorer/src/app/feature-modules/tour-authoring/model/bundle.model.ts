@@ -1,6 +1,6 @@
 export interface Bundle {
     id?: number;
-    userId: number;
+    userId: string;
     name: string;
     price: number;
     status: BundleStatus;

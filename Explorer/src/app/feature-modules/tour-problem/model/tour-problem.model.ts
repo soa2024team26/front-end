@@ -8,5 +8,5 @@ export interface TourProblem {
     isClosed: boolean;
     isResolved: boolean;
     deadlineTimeStamp?: Date;
-    touristId?: number;
+    touristId?: string;
 }

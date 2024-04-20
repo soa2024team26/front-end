@@ -15,10 +15,10 @@ import { OrderItem } from '../../marketplace/model/order-item.model';
 export class NavbarComponent implements OnInit {
 
   user: User | undefined;
-  shoppingCartId: Number;
+  shoppingCartId: string;
   shoppingCart: ShoppingCart;
   isLogged: boolean;
-  userId: Number;
+  userId: string;
   numberOfItems: number;
   orderItems: OrderItem[];
   constructor(private authService: AuthService, 
@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
         this.isLogged = true;
         this.userId = this.authService.user$.value.id;
         this.shoppingCartId = this.userId;      
-        this.service.getOrderItemsByShoppingCart(this.userId as number).subscribe({
+        this.service.getOrderItemsByShoppingCart(this.userId as string).subscribe({
           next: (result: OrderItem[]) => {
             this.orderItems = result;
             this.numberOfItems = this.orderItems.length;

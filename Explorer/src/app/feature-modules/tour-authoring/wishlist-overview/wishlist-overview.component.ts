@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class WishlistOverviewComponent implements OnInit {
   favouriteItems: FavouriteItem[] = [];
-  userId: number;
+  userId: string;
   wishlistId: number;
   wishlist: Wishlist;
   numberOfItems: number;

@@ -20,12 +20,12 @@ export class BundleViewComponent implements OnInit{
   bundleId: number;
   bundle: Bundle;
   toursList: any[] = [];
-  shoppingCartId: Number;
+  shoppingCartId: string;
   shoppingCart: ShoppingCart;
   numberOfItems: number;
   isLogged: boolean;
   orderItems: OrderItem[];
-  userId: Number;
+  userId: string;
   constructor(
     private route: ActivatedRoute,
     private service: TourAuthoringService,
@@ -53,7 +53,7 @@ export class BundleViewComponent implements OnInit{
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
       this.shoppingCartId = this.userId;      
-      this.service.getOrderItemsByShoppingCart(this.userId as number).subscribe({
+      this.service.getOrderItemsByShoppingCart(this.userId as string).subscribe({
         next: (result: OrderItem[]) => {
           this.orderItems = result;
           this.numberOfItems = this.orderItems.length;

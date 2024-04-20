@@ -1,6 +1,6 @@
 export interface BlogComment {
     id?: string;
-    userId : number;
+    userId : string;
     username: string;
     blogId : string;
     text: string;

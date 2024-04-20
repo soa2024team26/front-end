@@ -24,7 +24,7 @@ export class BundleManagementComponent implements OnInit {
     this.getBundlesByAuthorId(this.userId);
   }
 
-  getBundlesByAuthorId(userId: number): void {
+  getBundlesByAuthorId(userId: string): void {
     this.service.getBundlesByAuthorId(userId).subscribe((response) => {
       this.bundles = response;
     });

@@ -17,7 +17,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
   providedIn: 'root'
 })
 export class AuthService {
-  user$ = new BehaviorSubject<User>({username: "", id: 0, role: "" });
+  user$ = new BehaviorSubject<User>({username: "", id: "", role: "" });
 
   constructor(private http: HttpClient,
     private tokenStorage: TokenStorage,
@@ -25,7 +25,7 @@ export class AuthService {
 
   login(login: Login): Observable<AuthenticationResponse> {
     return this.http
-      .post<AuthenticationResponse>(environment.apiHost + 'users/login', login)
+      .post<AuthenticationResponse>('http://localhost:8080/api/login', login)
       .pipe(
         tap((authenticationResponse) => {
           this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
@@ -36,13 +36,13 @@ export class AuthService {
 
   register(registration: Registration): Observable<AuthenticationResponse> {
     return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users', registration);
+    .post<AuthenticationResponse>('http://localhost:8080/api/users', registration);
   }
 
   logout(): void {
     this.router.navigate(['/home']).then(_ => {
       this.tokenStorage.clear();
-      this.user$.next({username: "", id: 0, role: "" });
+      this.user$.next({username: "", id: "", role: "" });
       }
     );
   }
@@ -55,19 +55,19 @@ export class AuthService {
     this.setUser();
   }
 
-  getUsername(id: number): Observable<object> {
+  getUsername(id: string): Observable<object> {
     return this.http.get(environment.apiHost + 'users/' + id);
   }
 
   getAllUserIds(): Observable<object> {
-    return this.http.get(environment.apiHost + 'users/userids');
+    return this.http.get('http://localhost:8080/api/userids');
   }
 
   private setUser(): void {
     const jwtHelperService = new JwtHelperService();
     const accessToken = this.tokenStorage.getAccessToken() || "";
     const user: User = {
-      id: +jwtHelperService.decodeToken(accessToken).id,
+      id: jwtHelperService.decodeToken(accessToken).id,
       username: jwtHelperService.decodeToken(accessToken).username,
       role: jwtHelperService.decodeToken(accessToken)[
         'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
@@ -76,7 +76,7 @@ export class AuthService {
     this.user$.next(user);
   }
 
-  getUserById(userId: number): Observable<User> {
+  getUserById(userId: string): Observable<User> {
     return this.http.get<User>(`${environment.apiHost}users/${userId}`);
   }
   

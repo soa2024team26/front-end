@@ -202,15 +202,15 @@ export class TourAuthoringService {
   }
 
 
-  getPublicRequestsByUserId(userId: number): Observable<PagedResults<PublicRequest>> {
+  getPublicRequestsByUserId(userId: string): Observable<PagedResults<PublicRequest>> {
     return this.http.get<PagedResults<PublicRequest>>('http://localhost:8086/api/administrator/publicRequest/get/' + userId);
   }
 
-  getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
+  getShoppingCartByUserId(userId: string): Observable<ShoppingCart> {
     return this.http.get<ShoppingCart>(`http://localhost:8086/api/tourist/shoppingCart/user/2`);
   }
 
-  getShoppingCartById(id: Number): Observable<ShoppingCart> {
+  getShoppingCartById(id: string): Observable<ShoppingCart> {
     return this.http.get<ShoppingCart>('http://localhost:8086/api/tourist/shoppingCart/' + id);
   }
 
@@ -218,17 +218,17 @@ export class TourAuthoringService {
     return this.http.post<ShoppingCart>('http://localhost:8086/api/tourist/shoppingCart/shoppingItem/' + shoppingCart.id + '/' + tour.id, newPrice);
   }
 
-  getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
+  getOrderItemsByShoppingCart(userId: string): Observable<OrderItem[]> {
     const encodedUserId = encodeURIComponent(userId.toString());
     console.log(`Encoded User ID: ${encodedUserId}`);
     return this.http.get<OrderItem[]>(`http://localhost:8086/api/tourist/orderItem/orderItems/${encodedUserId}`);
   } 
 
-  getOrderItemsByUser(userId: number): Observable<PagedResults<OrderItem>> {
+  getOrderItemsByUser(userId: string): Observable<PagedResults<OrderItem>> {
     return this.http.get<PagedResults<OrderItem>>('http://localhost:8086/api/tourist/orderItem/orderItems/' + userId);
   }
 
-  getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
+  getUnreadPaymentNotifications(userId: string) : Observable<PagedResults<PaymentNotification>>{
     return this.http.get<PagedResults<PaymentNotification>>('http://localhost:8086/api/administrator/paymentNotification/unread-notifications/' + userId);
   }
 
@@ -265,11 +265,11 @@ export class TourAuthoringService {
     return this.http.put<Bundle>(`http://localhost:8086/api/author/bundle/finish-creating/${bundle.id}/` + price,  bundle);  
   }
 
-  getBundlesByAuthorId(userId: number): Observable<Bundle[]> {
+  getBundlesByAuthorId(userId: string): Observable<Bundle[]> {
     return this.http.get<Bundle[]>(`http://localhost:8086/api/author/bundle/byAuthor/${userId}`);
   }
 
-  getToursByAuthorId(userId: number): Observable<TourBundle[]> {
+  getToursByAuthorId(userId: string): Observable<TourBundle[]> {
     return this.http.get<TourBundle[]>(`http://localhost:8086/api/author/tour/byAuthor/${userId}`);
   }
 
@@ -303,7 +303,7 @@ export class TourAuthoringService {
     return this.http.post<Wishlist>(`https://localhost:44333/api/tourist/wishlist/wishlistItem/${wishlistId}/${tourId}`, {});
   }*/
 
-  getWishlist(id: Number): Observable<Wishlist> {
+  getWishlist(id: string): Observable<Wishlist> {
     return this.http.get<Wishlist>(`http://localhost:8086/api/tourist/wishlist/user/` + id);
   }
 

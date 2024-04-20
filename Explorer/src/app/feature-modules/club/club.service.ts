@@ -18,11 +18,11 @@ export class ClubService {
     return this.http.get<PagedResults<Club>>(environment.apiHost + 'clubs');
   }
 
-  getClubById(id: number): Observable<Club> {
+  getClubById(id: string): Observable<Club> {
     return this.http.get<Club>(environment.apiHost + 'clubs/' + id);
   }
 
-  deleteClub(id: number): Observable<Club> {
+  deleteClub(id: string): Observable<Club> {
     return this.http.delete<Club>(environment.apiHost + 'clubs/' + id);
   }
 
@@ -55,7 +55,7 @@ export class ClubService {
     return this.http.request(req);
   }
 
-  getClubMessages(clubId : number): Observable<PagedResults<ClubMessage>> {
+  getClubMessages(clubId : string): Observable<PagedResults<ClubMessage>> {
     return this.http.get<PagedResults<ClubMessage>>('http://localhost:8086/api/club/' + clubId + '/chatroom');
   }
 
@@ -63,11 +63,11 @@ export class ClubService {
     return this.http.post<ClubMessage>('http://localhost:8086/api/club', clubMessage);
   }
 
-  getAllMembers(clubId: number): Observable<Array<number>> {
-    return this.http.get<Array<number>>(environment.apiHost + 'clubs/' + clubId + '/allMembers');
+  getAllMembers(clubId: string): Observable<Array<string>> {
+    return this.http.get<Array<any>>(environment.apiHost + 'clubs/' + clubId + '/allMembers');
   }
 
-  inviteMembersToTour(clubId: number, senderId: number, tourId: number, invitedMemberIds: number[]): Observable<boolean> {
+  inviteMembersToTour(clubId: string, senderId: string, tourId: number, invitedMemberIds: string[]): Observable<boolean> {
     const params = new HttpParams()
     .set('senderId', senderId.toString())
     .set('tourId', tourId.toString());

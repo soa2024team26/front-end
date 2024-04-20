@@ -16,7 +16,7 @@ export class AppUserProfileComponent {
   showMessage: boolean = false;
   wallet: Wallet;
   formState: 'collapsed' | 'expanded' = 'collapsed';
-  userId: number;  
+  userId: string;  
   shouldRender: boolean = false;
   
   constructor(private service: AdministrationService , private router: Router,private route: ActivatedRoute) { }

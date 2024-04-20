@@ -13,7 +13,7 @@ import { StarComponent } from '../star/star.component';
 })
 export class ApplicationReviewComponent implements OnInit {
   applicationReview: ApplicationReview[] = [];
-  userNames: { [key: number]: string } = {};
+  userNames: { [key: string]: string } = {};
   
   
   constructor(private authService: AuthService,private service: AdministrationService) { }
@@ -49,7 +49,7 @@ export class ApplicationReviewComponent implements OnInit {
     return Array(Math.round(grade)).fill(0);
   }
 
-  getUserName(userId: number): string {
+  getUserName(userId: string): string {
     if (this.userNames[userId]) {
       return this.userNames[userId];
     }

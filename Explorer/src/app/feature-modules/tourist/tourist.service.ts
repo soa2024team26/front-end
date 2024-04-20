@@ -16,7 +16,7 @@ export class TouristService {
 
   constructor(private http: HttpClient) { }
 
-  getPurchaseReportsByTouristId(userId: number): Observable<PurchaseReport[]> {
+  getPurchaseReportsByTouristId(userId: string): Observable<PurchaseReport[]> {
     return this.http.get<PurchaseReport[]>(`http://localhost:8086/api/tourist/purchaseReport/byTourist/${userId}`);
   }
 

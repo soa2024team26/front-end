@@ -19,7 +19,7 @@ export class PurchaseReportComponent implements OnInit{
     this.getPurchaseReportsByTourist(this.userId);
   }
 
-  getPurchaseReportsByTourist(userId: number): void {
+  getPurchaseReportsByTourist(userId: string): void {
     this.touristService.getPurchaseReportsByTouristId(userId).subscribe((response) => {
       this.reports = response;
 

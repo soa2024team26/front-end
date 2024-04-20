@@ -19,7 +19,7 @@ export class CommentsReviewComponent implements OnInit {
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
   userNames: { [key: number]: string } = {};
-  currentUserId:number;
+  currentUserId:string;
   
 
   constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService) { 

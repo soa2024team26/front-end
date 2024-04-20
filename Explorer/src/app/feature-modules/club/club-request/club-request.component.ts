@@ -93,7 +93,7 @@ export class ClubRequestComponent implements OnInit {
     });
   }
 
-  getMappedClubName(clubId?: number): string {
+  getMappedClubName(clubId?: string): string {
     const club = this.clubs. find(c => c.id === clubId);
     return club ? club.name : 'Unknown';
   }
