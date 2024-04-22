@@ -47,7 +47,7 @@ export class ClubService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `https://localhost:44333/api/clubs/UploadFile`, formData, {
+    const req = new HttpRequest('POST', `http://localhost:8086/api/clubs/UploadFile`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -56,11 +56,11 @@ export class ClubService {
   }
 
   getClubMessages(clubId : number): Observable<PagedResults<ClubMessage>> {
-    return this.http.get<PagedResults<ClubMessage>>('https://localhost:44333/api/club/' + clubId + '/chatroom');
+    return this.http.get<PagedResults<ClubMessage>>('http://localhost:8086/api/club/' + clubId + '/chatroom');
   }
 
   addClubMessage(clubMessage: ClubMessage): Observable<ClubMessage> {
-    return this.http.post<ClubMessage>('https://localhost:44333/api/club', clubMessage);
+    return this.http.post<ClubMessage>('http://localhost:8086/api/club', clubMessage);
   }
 
   getAllMembers(clubId: number): Observable<Array<number>> {

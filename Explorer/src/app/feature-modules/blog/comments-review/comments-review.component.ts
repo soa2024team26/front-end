@@ -66,7 +66,7 @@ export class CommentsReviewComponent implements OnInit {
   ngOnInit(): void {
    
     this.route.params.subscribe(params => {
-      const blogId = +params['id']; // Ovo 'blogId' mora da se poklapa sa imenom parametra iz URL-a
+      const blogId = params['id']; // Ovo 'blogId' mora da se poklapa sa imenom parametra iz URL-a
       this.currentUserId = this.authService.user$.value.id;
       if (blogId) {
         this.getCommentsByBlogId(blogId);
@@ -80,7 +80,7 @@ export class CommentsReviewComponent implements OnInit {
   }
  
 
-  getCommentsByBlogId(blogId: number): void {
+  getCommentsByBlogId(blogId: string): void {
     this.blogService.getCommentsByBlogId(blogId).subscribe({
       next: (result: PagedResults<BlogComment>) => {
         this.comments = result.results;
@@ -93,7 +93,7 @@ export class CommentsReviewComponent implements OnInit {
     });
   }
 
-  deleteBlogComment(id: number): void {
+  deleteBlogComment(id: string): void {
     this.blogService.deleteBlogComment(id).subscribe({
       next: () => {
         this.getBlogComment();

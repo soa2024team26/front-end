@@ -75,7 +75,7 @@ export class MarketplaceService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `https://localhost:44333/api/tourist/tourReview/UploadFile`, formData, {
+    const req = new HttpRequest('POST', `http://localhost:8086/api/tourist/tourReview/UploadFile`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -90,16 +90,16 @@ export class MarketplaceService {
   getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
     const encodedUserId = encodeURIComponent(userId.toString());
     console.log(`Encoded User ID: ${encodedUserId}`);
-    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItem/orderItems/${encodedUserId}`);
+    return this.http.get<OrderItem[]>(`http://localhost:8086/api/tourist/orderItem/orderItems/${encodedUserId}`);
   }  
 
 
   getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
-    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);
+    return this.http.get<ShoppingCart>(`http://localhost:8086/api/tourist/shoppingCart/user/${userId}`);
   }
 
   removeFromCart(shoppingCartId: number, orderItemId: number): Observable<void> {
-    return this.http.put<void>('https://localhost:44333/api/tourist/shoppingCart/removeItem/'+ shoppingCartId + '/' + orderItemId, null);
+    return this.http.put<void>('http://localhost:8086/api/tourist/shoppingCart/removeItem/'+ shoppingCartId + '/' + orderItemId, null);
   }
 
   updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
@@ -108,7 +108,7 @@ export class MarketplaceService {
  
   
   createTokens(orderItems: OrderItem[], userId: number,discount:number): Observable<OrderItem[]> {
-    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}/`+discount, orderItems);
+    return this.http.post<OrderItem[]>(`http://localhost:8086/api/tourist/tourPurchaseToken/createTokens/${userId}/`+discount, orderItems);
   }
 
   getTokensByTourId(tourId: number): Observable<PagedResults<TourPurchaseToken>>{
@@ -120,11 +120,11 @@ export class MarketplaceService {
     }
 
   removeAllItems(shoppingCartId: number): Observable<ShoppingCart> {
-    return this.http.put<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/removeAllItems/${shoppingCartId}`,shoppingCartId);
+    return this.http.put<ShoppingCart>(`http://localhost:8086/api/tourist/shoppingCart/removeAllItems/${shoppingCartId}`,shoppingCartId);
   }
 
   getTotalPriceByUserId(userId: number): Observable<number> {
-    return this.http.get<number>(`https://localhost:44333/api/tourist/shoppingCart/totalPrice/${userId}`)
+    return this.http.get<number>(`http://localhost:8086/api/tourist/shoppingCart/totalPrice/${userId}`)
   }
   
 

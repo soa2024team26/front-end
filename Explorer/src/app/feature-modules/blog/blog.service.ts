@@ -15,58 +15,60 @@ export class BlogService {
   constructor(private http: HttpClient) { }
 
   getBlogComment(): Observable<PagedResults<BlogComment>> {
-    return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'tourist/comment')
+    return this.http.get<PagedResults<BlogComment>>('http://localhost:8080/api/' + 'tourist/blogcomment?page=0&pageSize=0')
   }
 
-  deleteBlogComment(id: number): Observable<BlogComment> {
-    return this.http.delete<BlogComment>(environment.apiHost + 'tourist/comment/' + id);
+  deleteBlogComment(id: string): Observable<BlogComment> {
+    return this.http.delete<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment/' + id);
   }
 
   addBlogComment(comment: BlogComment): Observable<BlogComment> {
-    return this.http.post<BlogComment>(environment.apiHost + 'tourist/comment', comment);
+    console.log(comment);
+    return this.http.post<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment', comment);
   }
 
   updateBlogComment(comment: BlogComment): Observable<BlogComment> {
-    return this.http.put<BlogComment>(environment.apiHost + 'tourist/comment/' + comment.id, comment);
+    return this.http.put<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment/' + comment.id, comment);
   }
 
   getBlogs(): Observable<PagedResults<Blog>> {
-    return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog')
+    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog?page=0&pageSize=0')
   }
 
   getBlogsByStatus(status: BlogStatus): Observable<PagedResults<Blog>> {
-    return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog/byStatus/' + status)
+    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog/byStatus/' + status)
   }
 
-  deleteBlog(id: number): Observable<Blog> {
-    return this.http.delete<Blog>(environment.apiHost + 'tourist/blog/' + id);
+  deleteBlog(id: string): Observable<Blog> {
+    return this.http.delete<Blog>('http://localhost:8080/api/' + 'tourist/blog/' + id);
   }
 
-  getBlog(id: number): Observable<Blog> {
-    return this.http.get<Blog>(environment.apiHost + 'tourist/blog/' + id);
+  getBlog(id: string): Observable<Blog> {
+    return this.http.get<Blog>('http://localhost:8080/api/' + 'tourist/blog/' + id);
   }
 
   addBlog(blog: Blog): Observable<Blog> {
-    return this.http.post<Blog>(environment.apiHost + 'tourist/blog', blog);
+    return this.http.post<Blog>('http://localhost:8080/api/' + 'tourist/blog', blog);
   }
 
   updateBlog(blog: Blog): Observable<Blog> {
-    return this.http.put<Blog>(environment.apiHost + 'tourist/blog/' + blog.id, blog);
+    console.log(blog.userId)
+    return this.http.put<Blog>('http://localhost:8080/api/' + 'tourist/blog/' + blog.id, blog);
   }
 
-  addRating(rating: Rating): Observable<any> {
-    return this.http.put(environment.apiHost + 'tourist/blog/AddRating', rating);
+  addRating(rating: Rating, id: string): Observable<any> {
+    return this.http.put('http://localhost:8080/api/' + 'tourist/blog/AddRating/' + id, rating);
   }
 
-  getRatingCount(id: number): Observable<any> {
-    return this.http.get<any>(`${environment.apiHost}tourist/blog/RatingCount?blogId=${id}`);
+  getRatingCount(id: string): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/api/' + 'tourist/blog/RatingCount/' + id);
   }  
   
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const req = new HttpRequest('POST', 'https://localhost:44333/api/tourist/blog/UploadFile', formData,{
+    const req = new HttpRequest('POST', 'http://localhost:8086/api/tourist/blog/UploadFile', formData,{
       reportProgress: true,
       responseType: 'json'
     });
@@ -75,10 +77,10 @@ export class BlogService {
   }
 
   getBlogsByUserId(id: number): Observable<PagedResults<Blog>> {
-    return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog/byUser/' + id);
+    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog/getByUserID/' + id);
   }
-  getCommentsByBlogId(id: number): Observable<PagedResults<BlogComment>> {
-    return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'tourist/comment/byBlog/' + id);
+  getCommentsByBlogId(id: string): Observable<PagedResults<BlogComment>> {
+    return this.http.get<PagedResults<BlogComment>>('http://localhost:8080/api/' + 'tourist/blogcomment/getByBlogID/' + id);
   }
 
   getSimilarBlogs(currentBlog: Blog): Observable<Blog[]> {

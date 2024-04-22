@@ -12,10 +12,10 @@
   <div class="blog-text">
     {{ blogPost?.description }}
   </div>
-  <label *ngIf="isTourReportDefined(blogPost)">
+<!--   <label *ngIf="blogPost.tourReport">
     Traveled Distance: {{ touristDistance }}m
-  </label>
-  <div *ngIf="isTourReportDefined(blogPost)">
+  </label> -->
+  <!-- <div *ngIf="blogPost.tourReport">
     <h3>Visited Checkpoints</h3>
     <table>
       <thead>
@@ -29,8 +29,8 @@
         </tr> 
       </tbody>
     </table>
-  </div>
-  <div *ngIf="isTourReportDefined(blogPost)">
+  </div> -->
+  <!-- <div *ngIf="blogPost.tourReport">
     <h3>Equipment Used</h3>
     <table>
       <thead>
@@ -44,7 +44,7 @@
         </tr>
       </tbody>
     </table>                              
-  </div>
+  </div> -->
   <div class="blog-info">
     <p>Author: {{ blogPost?.username }}</p>
     <p>Created: {{ blogPost?.creationTime | date:'medium' }}</p>
@@ -61,7 +61,7 @@
     </div>
   </div>
   <div>
-    <xp-blog-comment-form [blogId]="blogId!" (blogCommentAdded)="onCommentAdded($event)"></xp-blog-comment-form>
+    <xp-blog-comment-form [blogId]="blogId!"></xp-blog-comment-form>
   </div>
   <div>
     <xp-comments-review [comments]="comments"></xp-comments-review>
@@ -75,14 +75,10 @@
           <div class="blog-details">
             <h3 class="similar-blog-title">{{ similarBlog.title }}</h3>
           </div>
-          <button class="read-more-button" (click)="onReadMoreClicked(similarBlog.id || 0)" >Read More</button>
+          <button class="read-more-button" (click)="onReadMoreClicked(similarBlog.id || '')" >Read More</button>
         </div>
       </div>
     </div>
-    <div class="paragraf" *ngIf="!similarBlogs || similarBlogs.length === 0">
-      <img src="assets/images/unhappy-result.png" >
-      <p class="p">No similar blogs to show right now.</p>
-  </div>
   </div>  
 </div>
  
