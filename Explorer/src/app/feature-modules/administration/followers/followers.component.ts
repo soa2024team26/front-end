@@ -3,6 +3,7 @@ import { Profile } from '../model/profile.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'xp-followers',
@@ -16,7 +17,7 @@ export class FollowersComponent implements OnInit {
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
   showMessageForm: boolean = false;
-  hasFollowers: boolean = false;
+  hasNoFollowers: boolean = false;
 
   toggleChat() {
     this.showMessageForm = !this.showMessageForm;
@@ -26,7 +27,7 @@ export class FollowersComponent implements OnInit {
     this.showMessageForm = false;
   }
 
-  constructor(private service: AdministrationService,private router: Router) {}
+  constructor(private service: AdministrationService,private router: Router, private cdr: ChangeDetectorRef) {}
   
   ngOnInit(): void {
     // Get the currently logged-in user's profile
@@ -34,29 +35,36 @@ export class FollowersComponent implements OnInit {
       next: (loggedInProfile: Profile) => {
         this.loggedInProfile = loggedInProfile;
 
-        // Get all profiles
-        this.service.getProfiles().subscribe({
-          next: (result: PagedResults<Profile>) => {
-            // Filter out the currently logged-in profile
-            this.profiles = result.results.filter((profile) => profile.id !== loggedInProfile.id);
+
+        //===============TEMPORARILY COMMENTED FOLLOWERS MICROSERVICE REWORK================
+        // // Get all profiles
+        // this.service.getProfiles().subscribe({
+        //   next: (result: PagedResults<Profile>) => {
+        //     // Filter out the currently logged-in profile
+        //     this.profiles = result.results.filter((profile) => profile.id !== loggedInProfile.id);
             
-          },
-          error: (err: any) => {
-            console.log(err);
-          }
-        });
+        //   },
+        //   error: (err: any) => {
+        //     console.log(err);
+        //   }
+        // });
 
         // Get follows after getting the logged-in user's profile
-      this.service.getAllFollowers(this.loggedInProfile).subscribe({
+      this.service.getFollowers(this.loggedInProfile).subscribe({
         next: (result: PagedResults<Profile>) => {
-          this.followers = result.results;
+          this.followers = result.results ;
+          // console.log("RESULT");
+          // console.log(result);
           console.log("FOLLOWERS");
           console.log(this.followers);
           
+
+
           if(this.followers.length==0){
-            this.hasFollowers=true;
-            console.log("NEMA FOLLOWERA")
+            this.hasNoFollowers=true;
+            console.log("NO FOLLOWERS")
           }
+          this.cdr.detectChanges();
         },
         error: (err: any) => {
           console.error('Error while getting followers:', err);
@@ -79,4 +87,95 @@ export class FollowersComponent implements OnInit {
     this.router.navigate(['find-people']);
   }
 
+
+  followOrCheckFollow(profile: Profile): void {
+    if (this.loggedInProfile != null) {
+        // Call the isFollowing method first
+        this.service.isFollowing(this.loggedInProfile, profile).subscribe({
+            next: (isFollowing: boolean) => {
+                if (!isFollowing) {
+                    // If not following, proceed to call the follow method
+                    if(this.loggedInProfile != null){
+                      this.service.follow(profile, this.loggedInProfile).subscribe({
+                          next: (result: any) => {
+                              // Check the response status
+                              if (result.status === 200) {
+                                  // Trigger change detection refresh if necessary
+                                  this.cdr.detectChanges();
+                                  // Notify the user of successful follow action
+                                  alert('You have successfully followed the profile.');
+                              }
+                          },
+                          error: (err: any) => {
+                              console.error('Error while following:', err);
+                          }
+                      });
+                  }
+                } else {
+                    // Log a message if the user is already following the profile
+                    console.log(`${this.loggedInProfile?.id} is already following ${profile.id}`);
+                }
+            },
+            error: (error: any) => {
+                console.error('Error while checking if profile is followed:', error);
+            }
+        });
+    } else {
+        console.log('Logged in profile is null');
+    }
+}
+
+
+  // follow(profile: Profile): void {
+  //   if(this.loggedInProfile != null){
+  //     this.service.follow(profile, this.loggedInProfile).subscribe({
+  //         next: (result: any) => {
+  //             // Check the response status to see if it's 200 OK
+  //             if (result.status === 200) {
+  //                 // Trigger change detection refresh if necessary
+  //                 this.cdr.detectChanges();
+  //                 // Alert the user of successful follow action
+  //                 alert('You have successfully followed the profile.');
+  //             }
+  //         },
+  //         error: (err: any) => {
+  //             console.error('Error while following:', err);
+  //         }
+  //     });
+  //   }
+  // }
+
+  // isProfileFollowed(profile: Profile): boolean {
+  //   let isFollowing = false
+  //   if (this.loggedInProfile != null) {
+  //     // Call the service's isFollowing method
+  //     this.service.isFollowing(this.loggedInProfile, profile).subscribe({
+  //       next: (result: boolean) => {
+  //         // Handle the result: `result` is the boolean indicating whether the user is following the profile
+  //         if (result) {
+  //           console.log(`${this.loggedInProfile?.id} is following ${profile.id}`);
+  //           isFollowing = true
+  //           this.cdr.detectChanges();
+  //         } else {
+  //           console.log(`${this.loggedInProfile?.id} is not following ${profile.id}`);
+  //           isFollowing = false
+  //           this.cdr.detectChanges();
+  //         }
+  //         // You can also set a property on your component to store the result
+  //         // this.isFollowingProfile = result; // For example
+  //       },
+  //       error: (error: any) => {
+  //         console.error('Error while checking if profile is followed:', error);
+  //         // Handle the error appropriately
+  //       }
+  //     });
+  //   }
+  //   else{      
+  //     console.log('Logged in profile is null');
+  //     isFollowing = false
+  //     this.cdr.detectChanges();
+  //   }
+  //   return isFollowing
+  // }
+  
 }

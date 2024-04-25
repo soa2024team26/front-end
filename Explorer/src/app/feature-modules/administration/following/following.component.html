@@ -1,0 +1,37 @@
+<!-- tourist-followers.component.html -->
+<div *ngIf="!hasNoFollowers" class="center-class">  
+    <div class="followers-container">
+      <h1>You are following:</h1>
+      <div class="follower-list">
+        <div *ngFor="let individualFollower of followers" class="follower-card"> 
+          <a [routerLink]="['/app-user-profile', individualFollower.id]" class="profile-link">
+            <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+            <div class="follower-details">
+              <div><p>{{ individualFollower.firstName }} {{ individualFollower.lastName }}</p></div>
+            </div>
+          </a>        
+          <div class="follower-details">
+            <button class="message-button" (click)="sendMessageTo(individualFollower)">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <!-- <button mat-raised-button class="find-people-button" (click)="findPeople()">Find people</button> -->
+    <div *ngIf="selectedFollower && showMessageForm" class="message-form-wrapper">
+      <button mat-icon-button class="close-button" (click)="toggleChat()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <xp-message-form [selectedFollower]="selectedFollower"></xp-message-form>
+    </div>
+  </div>
+  
+  <!-- tourist-followers.component.html -->
+  <div *ngIf="hasNoFollowers" class="center-class">  
+    <div class="followers-container">
+      <h1>Followers:</h1>
+      <p class="no-posts-message"><b>You don't have any followers 🚶‍♂️</b></p>
+  
+      <img src="assets/images/Followers-rafiki.png" alt="Image Description">
+    </div>  
+    <button class="action-button" (click)="findPeople()">Find people</button>
+  </div>

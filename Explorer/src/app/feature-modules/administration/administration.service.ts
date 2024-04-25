@@ -95,7 +95,7 @@ export class AdministrationService {
   }
 
   getByUserId(): Observable<Profile> {
-    return this.http.get<Profile>('http://localhost:8086/api/administration/profile/by-user');
+    return this.http.get<Profile>('http://localhost:8080/api/administration/profile/by-user');
   }
 
   getProfileByUserId(id: number): Observable<Profile> {
@@ -147,7 +147,7 @@ export class AdministrationService {
   }
   
   getProfiles(): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-profiles');
+    return this.http.get<PagedResults<Profile>>('http://localhost:8080/api/administration/profile/all-profiles');
   }
 
   getProfiles2(): Observable<PagedResults<Profile>> {
@@ -167,6 +167,26 @@ export class AdministrationService {
   getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-followers/' + profile.id);
   }
+
+  getFollowers(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>('http://localhost:8080/api/profiles/' + profile.id + '/followers');
+  }
+
+  getFollowing(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>('http://localhost:8080/api/profiles/' + profile.id + '/following');
+  }
+
+  getFollowingOfFollowing(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>('http://localhost:8080/api/profiles/' + profile.id + '/following-of-following');
+  }
+
+  follow(profile: Profile, user: Profile): Observable<Response> {
+    return this.http.post<Response>('http://localhost:8080/api/profiles/' + user.id + '/follow/' + profile.id, {});
+  }
+
+  isFollowing(profile: Profile, user: Profile): Observable<boolean>{
+    return this.http.get<boolean>('http://localhost:8080/api/profiles/' + user.id + '/is-following/' + profile.id);
+  } 
 
   getPublicRequests(): Observable<PagedResults<PublicRequest>> {
     return this.http.get<PagedResults<PublicRequest>>('http://localhost:8086/api/administrator/publicRequest');

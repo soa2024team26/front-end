@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { FollowersComponent } from './followers/followers.component';
+import { FollowingComponent } from './following/following.component';
 import { MessageFormComponent } from './message-form/message-form.component';
 import { MessageComponent } from './message/message.component';
 import { Followers2Component } from './followers2/followers2.component';
@@ -50,6 +51,7 @@ import { VerificationComponent } from './user-account-administration/verificatio
 import { StarComponent } from './star/star.component';
 import { AuthorRequestsOverviewComponent } from './author-requests-overview/author-requests-overview.component';
 import { TouristToAuthorComponent } from './tourist-to-author/tourist-to-author.component';
+import { FollowingOfFollowingComponent } from './following-of-following/following-of-following.component';
 
 
 @NgModule({
@@ -68,6 +70,8 @@ import { TouristToAuthorComponent } from './tourist-to-author/tourist-to-author.
     ModalComponent,
     ProfilesComponent,
     FollowersComponent,
+    FollowingComponent,
+    FollowingOfFollowingComponent,
     MessageFormComponent,
     MessageComponent,
     Followers2Component,

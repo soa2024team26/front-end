@@ -10,7 +10,7 @@ export interface Profile {
     motto: string;
     userId?: string;
     isActive: boolean;
-    follows: Follow[];
+    // follows: Follow[];
     tourPreference: TourPreference;
     questionnaireDone: boolean;
     xp:number;
