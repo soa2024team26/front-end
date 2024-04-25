@@ -22,10 +22,10 @@ import { ApplicationReviewFormComponent } from '../application-review-form/appli
 })
 export class ShoppingCartComponent implements OnInit{
       orderItems: OrderItem[] = [];
-      shoppingCartId: number;
+      shoppingCartId: string;
       totalPrice: number;
       orderItemIds: number[] = [];
-      userId: number;
+      userId: string;
       numberOfItems: number;
       wallet: Wallet;
       profile:Profile;

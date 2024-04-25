@@ -16,7 +16,7 @@ export class ActiveEncounterComponent implements OnInit {
   public encounters: Encounter[] = [];
   public touristPosition: TouristPosition;
   public currentEncoutner: Encounter | null;
-  public userId: number = 0;
+  public userId: string = "";
   public number: number = 0;    // DO NOT CHANGE; EVERYTHING IS USED TO CHECK IF ENCOUNTER IS ACTIVATED
   public shouldCreateActiveEncounter: boolean = true;
   public imageLongitude: number = 0;

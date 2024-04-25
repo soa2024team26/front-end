@@ -17,7 +17,7 @@ export class TourExecutionService {
   constructor(private http: HttpClient) { }
 
 
-  getTourExecution(userId: Number): Observable<TourExecution> {
+  getTourExecution(userId: string): Observable<TourExecution> {
     return this.http.get<TourExecution>('http://localhost:8086/api/tourexecution/get/' + userId);
   }
   completeTour(id?: Number): Observable<TourExecution> {
@@ -29,7 +29,7 @@ export class TourExecutionService {
   updateTourExecution(tourExecution: TourExecution): Observable<TourExecution> {
     return this.http.put<TourExecution>('http://localhost:8086/api/tourexecution/' + tourExecution.id, tourExecution)
   }
-  completeCheckpoint(id: number, checkpoints: Checkpoint[]): Observable<TourExecution> {
+  completeCheckpoint(id: string, checkpoints: Checkpoint[]): Observable<TourExecution> {
     return this.http.put<TourExecution>('http://localhost:8086/api/tourexecution/checkpointComplete/' + id, checkpoints);
   }
   getSecrets(cpId:number){
@@ -51,7 +51,7 @@ export class TourExecutionService {
     return this.http.put<ActiveEncounter>('http://localhost:8086/api/activeEncounter',activeEncounter);
   }
   
-  getTourExecutionByTourAndUser(tourId: number, userId: number): Observable<PagedResults<TourExecution>>{
+  getTourExecutionByTourAndUser(tourId: number, userId: string): Observable<PagedResults<TourExecution>>{
     return this.http.get<PagedResults<TourExecution>>('http://localhost:8086/api/tourexecution/'+ tourId +'/' + userId);
   }
 

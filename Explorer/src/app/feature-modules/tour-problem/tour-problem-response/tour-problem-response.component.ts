@@ -18,7 +18,7 @@ export class TourProblemResponseComponent implements OnInit {
   currentUser: User;
   @Input() currentProblemId: number | null; //added | null
   @Output() responsesUpdated = new EventEmitter<null>();
-  mappedUsername: { [key: number]: string } = {};
+  mappedUsername: { [key: string]: string } = {};
 
   constructor(private problemResponseService: TourProblemResponseService, private authService: AuthService, private route: ActivatedRoute, private snackBar: MatSnackBar) {  
 
@@ -96,7 +96,7 @@ export class TourProblemResponseComponent implements OnInit {
     }
   }
 
-  getMappedUsername(userId: number): Observable<string> {
+  getMappedUsername(userId: string): Observable<string> {
     return this.authService.getUsername(userId).pipe(
         map((userData: any) => {
             if (userData && userData.username) {
@@ -116,7 +116,7 @@ export class TourProblemResponseComponent implements OnInit {
     this.problemResponses.forEach(response => {
       const commenterId = response.commenterId;
       this.getMappedUsername(commenterId).subscribe(
-        (username: string) => {
+        (username: any) => {
           this.mappedUsername[commenterId] = username;
         },
         (error: any) => {

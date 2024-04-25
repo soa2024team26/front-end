@@ -1,6 +1,6 @@
 export interface Question {
     id?: number;
-    touristId: number;
+    touristId: string;
     text: string;
     isAnswerd: boolean;
 }

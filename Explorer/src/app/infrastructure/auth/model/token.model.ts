@@ -1,6 +1,6 @@
 export interface Token {
     id?: number;
-    userId: number;
+    userId: string;
     value: string;
     expirationTime: Date;
 }

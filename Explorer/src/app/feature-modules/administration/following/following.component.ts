@@ -3,19 +3,21 @@ import { Profile } from '../model/profile.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
-  selector: 'xp-followers2',
-  templateUrl: './followers2.component.html',
-  styleUrls: ['./followers2.component.css']
+  selector: 'xp-following',
+  templateUrl: './following.component.html',
+  styleUrls: ['./following.component.css']
 })
-export class Followers2Component {
+export class FollowingComponent implements OnInit {
+
   loggedInProfile: Profile | null = null;
   followers: Profile[] = [];
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
   showMessageForm: boolean = false;
-  hasFollowers: boolean = false;
+  hasNoFollowers: boolean = false;
 
   toggleChat() {
     this.showMessageForm = !this.showMessageForm;
@@ -25,19 +27,20 @@ export class Followers2Component {
     this.showMessageForm = false;
   }
 
-  constructor(private service: AdministrationService,private router: Router) {}
+  constructor(private service: AdministrationService,private router: Router, private cdr: ChangeDetectorRef) {}
   
   ngOnInit(): void {
     // Get the currently logged-in user's profile
-    this.service.getByUserId2().subscribe({
+    this.service.getByUserId().subscribe({
       next: (loggedInProfile: Profile) => {
         this.loggedInProfile = loggedInProfile;
 
         // Get all profiles
-        this.service.getProfiles2().subscribe({
+        this.service.getProfiles().subscribe({
           next: (result: PagedResults<Profile>) => {
             // Filter out the currently logged-in profile
             this.profiles = result.results.filter((profile) => profile.id !== loggedInProfile.id);
+            
           },
           error: (err: any) => {
             console.log(err);
@@ -45,13 +48,20 @@ export class Followers2Component {
         });
 
         // Get follows after getting the logged-in user's profile
-      this.service.getAllFollowers2(this.loggedInProfile).subscribe({
+      this.service.getFollowing(this.loggedInProfile).subscribe({
         next: (result: PagedResults<Profile>) => {
-          this.followers = result.results;
+          this.followers = result.results ;
+          // console.log("RESULT");
+          // console.log(result);
+          console.log("FOLLOWERS");
+          console.log(this.followers);
+          
           if(this.followers.length==0){
-            this.hasFollowers=true;
+            this.hasNoFollowers=true;
             console.log("NO FOLLOWERS")
           }
+
+          this.cdr.detectChanges();
         },
         error: (err: any) => {
           console.error('Error while getting followers:', err);
@@ -69,7 +79,9 @@ export class Followers2Component {
     this.showMessageForm = true;
     console.log(this.selectedFollower);
   }
+
   findPeople() {
-    this.router.navigate(['find-people-autor']);
+    this.router.navigate(['find-people']);
   }
+
 }

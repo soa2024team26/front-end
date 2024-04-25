@@ -33,7 +33,7 @@ export class ActiveTourComponent implements OnInit {
   public activeEncounters: ActiveEncounter[] = []
   public activeEncounter:Encounter;
   public encounterMapMaterials: EncounterMapMaterial[] = []
-  public activePeopleList:number[]= []
+  public activePeopleList:string[]= []
   public counter:number = 1
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',

@@ -26,7 +26,7 @@ export class PasswordRecoveryComponent {
     expirationTime.setHours(expirationTime.getHours() + 24);
 
     const token: Token = {
-      userId: 0,
+      userId: "",
       value: this.generateRandomString(),
       expirationTime: expirationTime,
     }

@@ -44,8 +44,8 @@ export class MessageFormComponent {
       if (this.messageForm.valid && this.selectedFollower) {
       const message: Message = {
         id: 0,
-        senderId: this.loggedInProfile.id || 0,
-        receiverId: this.selectedFollower.id || 0,
+        senderId: this.loggedInProfile.id || "",
+        receiverId: this.selectedFollower.id || "",
         messageContent: this.messageForm.value.messageContent || "",
         status: 0,
       };

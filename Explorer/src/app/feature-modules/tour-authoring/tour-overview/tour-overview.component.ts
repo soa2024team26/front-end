@@ -41,7 +41,7 @@ export class TourOverviewComponent {
   tourExecution: TourExecution | undefined;
   tourFetched: boolean = false;
   userFetched: boolean = false;
-  userId: number;
+  userId: string;
   shouldRenderTpForm: boolean = false;
   shouldRenderGiftForm: boolean = false;
 

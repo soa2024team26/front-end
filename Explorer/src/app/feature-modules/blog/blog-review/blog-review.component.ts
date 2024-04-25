@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { Blog, BlogCategory, BlogStatus, BlogCategoryValues  } from '../model/blog.model';
 import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AdministrationService } from '../../administration/administration.service';
+import { Profile } from '../../administration/model/profile.model';
 
 
 @Component({
@@ -19,13 +21,63 @@ export class BlogReviewComponent {
   totalPageArray: number[] = [];
   BlogCategory: BlogCategory;
   originalBlogs: Blog[] = [];
+  filteredBlogs: Blog[] = [];
 
-  constructor(private service: BlogService, private router: Router) {}
+  loggedInProfile: Profile | null = null;
+  following: Profile[] = [];
+
+  constructor(private service: BlogService, private router: Router, private adminService: AdministrationService,private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.getBlogs();
+    this.getLoggedInProfileAndFollowers();
   }
 
+  getLoggedInProfileAndFollowers(): void {
+    this.adminService.getByUserId().subscribe({
+      next: (profile: Profile) => {
+        this.loggedInProfile = profile;
+        // Retrieve the followers list
+        this.getFollowers();
+      },
+      error: (err) => {
+        console.error('Error while getting logged-in profile:', err);
+      }
+    });
+  }
+
+  // Method to retrieve followers
+  getFollowers(): void {
+    if (this.loggedInProfile) {
+      this.adminService.getFollowing(this.loggedInProfile).subscribe({
+        next: (result: PagedResults<Profile>) => {
+          this.following = result.results;
+          // Once followers are retrieved, proceed to get and filter blogs
+          this.getAndFilterBlogs();
+        },
+        error: (err) => {
+          console.error('Error while getting followers:', err);
+        }
+      });
+    }
+  }
+
+  getAndFilterBlogs(): void {
+    this.service.getBlogs().subscribe({
+      next: (result: PagedResults<Blog>) => {
+        this.originalBlogs = result.results;
+        // Filter blogs based on followers
+        this.filteredBlogs = this.originalBlogs.filter(blog => 
+          this.following.some(follow => follow.userId === blog.userId)
+        );
+        this.totalPages = Math.ceil(this.filteredBlogs.length / this.itemsPerPage); 
+        this.totalPageArray = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+        this.updateBlogRows();
+      },
+      error: () => {
+        console.error('Error while retrieving blogs');
+      }
+    });
+  }
 
   getBlogs(): void {
     this.service.getBlogs().subscribe({

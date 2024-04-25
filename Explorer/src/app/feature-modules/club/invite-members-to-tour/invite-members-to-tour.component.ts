@@ -17,11 +17,11 @@ import { Message } from '../../administration/model/message.model';
 })
 
 export class InviteMembersToTourComponent implements OnInit{
-  clubId: number;
-  clubMembers: number[] = [];
-  invitedMemberIds: number[] = [];
+  clubId: string;
+  clubMembers: string[] = [];
+  invitedMemberIds: string[] = [];
   user: User | undefined;
-  senderId: number;
+  senderId: string;
   tourId: number;
   club: Club;
   tour: Tour;
@@ -29,7 +29,7 @@ export class InviteMembersToTourComponent implements OnInit{
   constructor(private clubService: ClubService, private route: ActivatedRoute, private authService: AuthService, private tourService: TourAuthoringService, private administrationService: AdministrationService ) {}
 
   ngOnInit(): void {
-    this.clubId = Number(this.route.snapshot.paramMap.get('clubId'));
+    this.clubId = String(this.route.snapshot.paramMap.get('clubId'));
 
     this.clubService.getAllMembers(this.clubId).subscribe((members) => {
       this.clubMembers = members;
@@ -46,7 +46,7 @@ export class InviteMembersToTourComponent implements OnInit{
 
   }
 
-  toggleMember(memberId: number): void {
+  toggleMember(memberId: string): void {
     if (this.invitedMemberIds.includes(memberId)) {
       this.invitedMemberIds = this.invitedMemberIds.filter(id => id !== memberId);
     } else {
@@ -92,7 +92,7 @@ export class InviteMembersToTourComponent implements OnInit{
       );
   }
 
-  sendInvitations(memberIds: number[], senderId: number, tour: Tour): void {
+  sendInvitations(memberIds: string[], senderId: string, tour: Tour): void {
     for (const memberId of memberIds) {
       const message: Message = {
         id: 0,

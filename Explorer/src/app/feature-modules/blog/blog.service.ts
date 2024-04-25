@@ -76,8 +76,7 @@ export class BlogService {
     return this.http.request(req);
   }
 
-  getBlogsByUserId(id: number): Observable<Blog[]> {
-    return this.http.get<Blog[]>('http://localhost:8080/api/' + 'tourist/blog/getByUserID/' + id);
+
   }
   getCommentsByBlogId(id: string): Observable<BlogComment[]> {
     return this.http.get<BlogComment[]>('http://localhost:8080/api/' + 'tourist/blogcomment/getByBlogID/' + id);

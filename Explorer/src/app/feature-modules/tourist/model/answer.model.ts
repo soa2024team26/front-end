@@ -1,7 +1,7 @@
 export interface Answer {
     id?: number,
-    touristId: number,
-    adminId: number,
+    touristId: string,
+    adminId: string,
     text: string,
     category: AnswerCategory,
     visability: boolean,

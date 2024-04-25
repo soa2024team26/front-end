@@ -15,11 +15,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BundleOverviewComponent implements OnInit{
   bundles: Bundle[] = [];
-  shoppingCartId: Number;
+  shoppingCartId: string;
   shoppingCart: ShoppingCart;
   numberOfItems: number;
   isLogged: boolean;
-  userId: Number;
+  userId: string;
   orderItems: OrderItem[];
   constructor(private service: TourAuthoringService, private authService: AuthService,private router: Router,  private snackBar: MatSnackBar) { }
 
@@ -30,7 +30,7 @@ export class BundleOverviewComponent implements OnInit{
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
       this.shoppingCartId = this.userId;      
-      this.service.getOrderItemsByShoppingCart(this.userId as number).subscribe({
+      this.service.getOrderItemsByShoppingCart(this.userId as string).subscribe({
         next: (result: OrderItem[]) => {
           this.orderItems = result;
           this.numberOfItems = this.orderItems.length;

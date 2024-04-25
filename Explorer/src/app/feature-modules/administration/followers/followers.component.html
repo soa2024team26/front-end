@@ -1,22 +1,26 @@
 <!-- tourist-followers.component.html -->
-<div *ngIf="!hasFollowers" class="center-class">  
+<div *ngIf="!hasNoFollowers" class="center-class">  
   <div class="followers-container">
     <h1>Your Followers:</h1>
     <div class="follower-list">
-      <div *ngFor="let individualFollower of followers" class="follower-card"> 
+      <div *ngFor="let individualFollower of followers" class="follower-card">
         <a [routerLink]="['/app-user-profile', individualFollower.id]" class="profile-link">
           <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
-          <div class="follower-details">
-            <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
-          </div>
-        </a>        
+        </a>
+        <div class="follower-details"> <!-- Wrapped names inside a div with follower-details class -->
+          <p>{{ individualFollower.firstName }}</p>
+          <p>{{ individualFollower.lastName }}</p>
+        </div>
+        <div>
+          <button class="message-button" (click)="followOrCheckFollow(individualFollower)">Follow</button>          
+        </div>        
         <div class="follower-details">
           <button class="message-button" (click)="sendMessageTo(individualFollower)">Message</button>
         </div>
       </div>
     </div>
   </div>  
-  <button mat-raised-button class="find-people-button" (click)="findPeople()">Find people</button>
+  <!-- <button mat-raised-button class="find-people-button" (click)="findPeople()">Find people</button> -->
   <div *ngIf="selectedFollower && showMessageForm" class="message-form-wrapper">
     <button mat-icon-button class="close-button" (click)="toggleChat()">
       <mat-icon>close</mat-icon>
@@ -26,7 +30,7 @@
 </div>
 
 <!-- tourist-followers.component.html -->
-<div *ngIf="hasFollowers" class="center-class">  
+<div *ngIf="hasNoFollowers" class="center-class">  
   <div class="followers-container">
     <h1>Followers:</h1>
     <p class="no-posts-message"><b>You don't have any followers 🚶‍♂️</b></p>

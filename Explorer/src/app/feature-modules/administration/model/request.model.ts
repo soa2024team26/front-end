@@ -1,6 +1,6 @@
 export interface Request {
     id: number;
-    profileId?: number;
+    profileId?: string;
     status: RequestStatus
 }
 

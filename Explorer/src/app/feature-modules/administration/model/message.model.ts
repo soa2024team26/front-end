@@ -1,7 +1,7 @@
 export interface Message {
     id: number;
-    senderId: number;
-    receiverId: number;
+    senderId: string;
+    receiverId: string;
     messageContent: string;
     status: MessageStatus
 }

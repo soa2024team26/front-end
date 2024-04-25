@@ -4,6 +4,6 @@ export interface GiftCard {
     note?: string;
     recommendedTour: number;
     receiver?: number;
-    senderId?: number;
+    senderId?: string;
     sender: string;
 }

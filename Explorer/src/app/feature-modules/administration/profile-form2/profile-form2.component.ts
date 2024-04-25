@@ -44,7 +44,7 @@ export class ProfileForm2Component implements OnChanges {
       biography: this.profileForm.value.biography || "",
       motto: this.profileForm.value.motto || "",
       isActive: true,
-      follows: this.profile.follows,
+      // follows: this.profile.follows,
       tourPreference: this.profile.tourPreference,
       questionnaireDone: this.profile.questionnaireDone,
       xp:this.profile.xp,

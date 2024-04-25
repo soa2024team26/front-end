@@ -19,7 +19,7 @@ export class ComplexTourService {
   }
   
 
-  retrivesAllUserTours(userId:number) : Observable<PagedResults<Tour>> {
+  retrivesAllUserTours(userId:string) : Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>('http://localhost:8086/api/tourComposition/'+userId+'?page=0&pageSize=0');
   }
 

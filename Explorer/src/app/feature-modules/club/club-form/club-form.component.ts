@@ -56,12 +56,12 @@ export class ClubFormComponent implements OnChanges {
       return;
     }
 
-    let memberId = this.user?.id as number;
+    let memberId = this.user?.id as string;
     const club: Club = {
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
       imageUrl: 'https://localhost:44333/Images/' + this.currentFile.name || "",
-      ownerId : this.user?.id || 0,
+      ownerId : this.user?.id || "",
       memberIds : [ memberId ],
     };
     this.service.addClub(club).subscribe({
@@ -90,7 +90,7 @@ export class ClubFormComponent implements OnChanges {
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
       imageUrl: newImageUrl,
-      ownerId : this.user?.id || 0,
+      ownerId : this.user?.id || "",
       memberIds : this.club.memberIds,
     }
     club.id = this.club.id;

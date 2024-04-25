@@ -2,15 +2,15 @@ import { TourPreference } from "../../tour-preference/model/tour-preference.mode
 import { Follow } from "./follow.model";
 
 export interface Profile {
-    id?: number;
+    id?: string;
     firstName: string;
     lastName: string;
     profilePicture: string;
     biography: string;
     motto: string;
-    userId?: number;
+    userId?: string;
     isActive: boolean;
-    follows: Follow[];
+    // follows: Follow[];
     tourPreference: TourPreference;
     questionnaireDone: boolean;
     xp:number;

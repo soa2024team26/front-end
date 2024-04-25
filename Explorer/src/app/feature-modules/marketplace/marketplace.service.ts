@@ -59,7 +59,7 @@ export class MarketplaceService {
     return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + id);
   }
 
-  addTourReview(tourReview: TourReview, userId: number): Observable<TourReview> {
+  addTourReview(tourReview: TourReview, userId: string): Observable<TourReview> {
     return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview/'+ userId, tourReview);
   }
 
@@ -87,7 +87,7 @@ export class MarketplaceService {
     return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
   }
 
-  getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
+  getOrderItemsByShoppingCart(userId: string): Observable<OrderItem[]> {
     const encodedUserId = encodeURIComponent(userId.toString());
     console.log(`Encoded User ID: ${encodedUserId}`);
     return this.http.get<OrderItem[]>(`http://localhost:8086/api/tourist/orderItem/orderItems/${encodedUserId}`);
@@ -98,7 +98,7 @@ export class MarketplaceService {
     return this.http.get<ShoppingCart>(`http://localhost:8086/api/tourist/shoppingCart/user/${userId}`);
   }
 
-  removeFromCart(shoppingCartId: number, orderItemId: number): Observable<void> {
+  removeFromCart(shoppingCartId: string, orderItemId: number): Observable<void> {
     return this.http.put<void>('http://localhost:8086/api/tourist/shoppingCart/removeItem/'+ shoppingCartId + '/' + orderItemId, null);
   }
 
@@ -107,7 +107,7 @@ export class MarketplaceService {
   }
  
   
-  createTokens(orderItems: OrderItem[], userId: number,discount:number): Observable<OrderItem[]> {
+  createTokens(orderItems: OrderItem[], userId: string,discount:number): Observable<OrderItem[]> {
     return this.http.post<OrderItem[]>(`http://localhost:8086/api/tourist/tourPurchaseToken/createTokens/${userId}/`+discount, orderItems);
   }
 
@@ -119,11 +119,11 @@ export class MarketplaceService {
     return this.http.get<PagedResults<TourPurchaseToken>>(environment.apiHost + 'tourist/tourPurchaseToken/by-tour-weekly/' + tourId);    
     }
 
-  removeAllItems(shoppingCartId: number): Observable<ShoppingCart> {
+  removeAllItems(shoppingCartId: string): Observable<ShoppingCart> {
     return this.http.put<ShoppingCart>(`http://localhost:8086/api/tourist/shoppingCart/removeAllItems/${shoppingCartId}`,shoppingCartId);
   }
 
-  getTotalPriceByUserId(userId: number): Observable<number> {
+  getTotalPriceByUserId(userId: string): Observable<number> {
     return this.http.get<number>(`http://localhost:8086/api/tourist/shoppingCart/totalPrice/${userId}`)
   }
   

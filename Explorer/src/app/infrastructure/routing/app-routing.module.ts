@@ -75,6 +75,7 @@ import { AuthorRequestsOverviewComponent } from 'src/app/feature-modules/adminis
 import { CheckpointsComponent } from 'src/app/shared/checkpoints/checkpoints.component';
 import { RegistrationCompletedComponent } from '../auth/registration-completed/registration-completed.component';
 
+
 const routes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'home', component: HomeComponent},

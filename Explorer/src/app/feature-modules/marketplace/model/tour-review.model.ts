@@ -3,7 +3,7 @@ export interface TourReview {
     grade: number;
     comment: string;
     images: string;
-    userId: number;
+    userId: string;
     reviewDate: Date;
     tourId: number;
 }

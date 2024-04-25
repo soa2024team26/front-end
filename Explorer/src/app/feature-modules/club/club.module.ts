@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ChangeDetectorRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClubsOverviewComponent } from './clubs-overview/clubs-overview.component';
 import { ClubOverviewComponent } from './club-overview/club-overview.component';
@@ -24,7 +24,7 @@ import { InviteMembersToTourComponent } from './invite-members-to-tour/invite-me
     MaterialModule,
     ReactiveFormsModule,
     AdministrationModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     ClubsOverviewComponent,

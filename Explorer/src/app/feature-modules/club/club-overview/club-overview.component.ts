@@ -23,22 +23,22 @@ export class ClubOverviewComponent {
 
   constructor(private route: ActivatedRoute, private service: ClubService, private authService: AuthService,private adminService: AdministrationService, private zone: NgZone ) { }
 
-  clubId: number;
+  clubId: string;
   club: Club;
   isOwner: boolean;
   user: User | undefined;
-  allMemberIds: number[] = [];
-  nonMemberIds: number[] = [];
+  allMemberIds: string[] = [];
+  nonMemberIds: string[] = [];
   nonMemberUsernames: string[] = [];
   
-  mappedMembers: { [key: number]: string } = {};
-  mappedNonMembers: { [key: number]: string } = {};
+  mappedMembers: { [key: string]: string } = {};
+  mappedNonMembers: { [key: string]: string } = {};
   
   allMembersProfiles: Profile[]=[];
   nonMembersProfiles: Profile[]=[];
 
   clubMessages: ClubMessage[] = [];
-  senderProfiles: { [senderId: number]: Profile } = {};
+  senderProfiles: { [senderId: string]: Profile } = {};
 
   newClubMessage : ClubMessage;
   newMessageText : '';
@@ -49,13 +49,13 @@ export class ClubOverviewComponent {
   private timeoutId: any;
 
   ngOnInit(): void {
-    this.clubId = Number(this.route.snapshot.paramMap.get('id'));
+    this.clubId = String(this.route.snapshot.paramMap.get('id'));
     this.getClub(this.clubId);
     this.getClubMessages(this.clubId);
 
     this.authService.user$.subscribe(user => {
       this.user = user;
-      this.clubId = Number(this.route.snapshot.paramMap.get('id'));
+      this.clubId = String(this.route.snapshot.paramMap.get('id'));
 
     });
     
@@ -95,7 +95,7 @@ export class ClubOverviewComponent {
       }
     
 
-  getClubMessages(clubId: number) : void {
+  getClubMessages(clubId: string) : void {
     this.service.getClubMessages(clubId).subscribe({
       next: (result: PagedResults<ClubMessage>) => {
         //@ts-ignore
@@ -120,7 +120,7 @@ export class ClubOverviewComponent {
 
  
 
-  getClub(clubId: number): void {
+  getClub(clubId: string): void {
     this.service.getClubById(clubId).subscribe({
       next: (result: Club) => {
         this.club = result;
@@ -158,8 +158,8 @@ export class ClubOverviewComponent {
           this.nonMemberIds = this.nonMemberIds.filter(id => !this.club.memberIds.includes(id));
           this.adminService.getProfiles().subscribe((profilesResult: PagedResults<Profile>) => {
             const allProfiles: Profile[] = profilesResult.results;
-            this.allMembersProfiles = allProfiles.filter(profile => this.club.memberIds.includes(profile.userId as number));
-            this.nonMembersProfiles = allProfiles.filter(profile => this.nonMemberIds.includes(profile.userId as number));
+            this.allMembersProfiles = allProfiles.filter(profile => this.club.memberIds.includes(profile.userId as string));
+            this.nonMembersProfiles = allProfiles.filter(profile => this.nonMemberIds.includes(profile.userId as string));
             
           });
         });
@@ -171,7 +171,7 @@ export class ClubOverviewComponent {
     })
   }
 
-  kickMember(memberId: number | undefined) {
+  kickMember(memberId: string | undefined) {
     if (memberId === undefined) {
       console.error('Member ID is undefined');
       return;
@@ -182,7 +182,7 @@ export class ClubOverviewComponent {
     });
   }
 
-  inviteMember(nonMemberId: number| undefined) {
+  inviteMember(nonMemberId: string| undefined) {
     if (nonMemberId === undefined) {
       console.error('Non-member ID is undefined');
       return;
@@ -228,7 +228,7 @@ export class ClubOverviewComponent {
         });
       }
     
-      getMappedUsername(userId: number): Observable<string> {
+      getMappedUsername(userId: string): Observable<string> {
         return this.authService.getUsername(userId).pipe(
             map((userData: any) => {
                 if (userData && userData.username) {

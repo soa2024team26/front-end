@@ -57,7 +57,7 @@ export class BundleUpdateFormComponent implements OnInit {
   
 
   
-  getToursByAuthorId(userId: number): void {
+  getToursByAuthorId(userId: string): void {
     this.service.getToursByAuthorId(userId)
       .subscribe((response: TourBundle[]) => {
         this.tours = response;

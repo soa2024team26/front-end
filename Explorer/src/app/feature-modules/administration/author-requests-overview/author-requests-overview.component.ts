@@ -32,9 +32,9 @@ export class AuthorRequestsOverviewComponent implements OnInit {
   }
 
   fetchProfiles(): void {
-    const profileIds: number[] = this.requests
+    const profileIds: string[] = this.requests
       .filter(request => request.profileId !== undefined)
-      .map(request => request.profileId!) as number[];
+      .map(request => request.profileId!) as string[];
 
     const profileRequests = profileIds.map(id => this.service.getByProfileUserId(id));
 

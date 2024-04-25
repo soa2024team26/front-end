@@ -178,7 +178,7 @@ saveComplexTour() {
       footTime: 0,
       bicycleTime: 0,
       carTime: 0,
-      authorId: this.user?.id || -1,
+      authorId: this.user?.id || "",
       publishTime: new Date().toISOString(),
     };
 

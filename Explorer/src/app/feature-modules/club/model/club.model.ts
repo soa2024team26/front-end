@@ -1,11 +1,9 @@
-
-
 export interface Club {
-    id?: number;
+    id?: string;
     name: string;
     description: string;
     imageUrl: string;
-    ownerId: number;
-    memberIds: number[];
+    ownerId: string;
+    memberIds: string[];
 }
 

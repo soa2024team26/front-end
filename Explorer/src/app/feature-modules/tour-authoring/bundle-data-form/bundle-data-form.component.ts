@@ -34,7 +34,7 @@ export class BundleDataFormComponent implements OnInit{
     this.getToursByAuthorId(this.userId);
   }
   
-  getToursByAuthorId(userId: number): void{
+  getToursByAuthorId(userId: string): void{
     this.service.getToursByAuthorId(userId)
     .subscribe(response => {
       this.tours = response;

@@ -16,9 +16,9 @@ export class AppUserFollowersComponent {
   followers: Profile[] = [];
   profiles: Profile[];
   selectedFollower: Profile | null = null;
-  id: number = -1;
+  id: string = "";
   selectedId: number = -1;
-  followedProfiles: { [key: number]: boolean } = {};
+  followedProfiles: { [key: string]: boolean } = {};
   profileFollowed="";
   alreadyFollow: any;
   hasFollowers: boolean = false;

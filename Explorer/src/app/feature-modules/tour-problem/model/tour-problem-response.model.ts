@@ -3,5 +3,5 @@ export interface TourProblemResponse {
     response?: string;
     timeStamp: Date;
     tourProblemId?: number;
-    commenterId: number;
+    commenterId: string;
 }

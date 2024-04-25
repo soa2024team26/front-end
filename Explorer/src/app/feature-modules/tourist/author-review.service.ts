@@ -16,11 +16,11 @@ export class AuthorReviewService {
     return this.http.get<PagedResults<AuthorReview>>(environment.apiHost + 'tourist/authorReview');
   }
 
-  addReview(authorReview: AuthorReview, touristId: number): Observable<AuthorReview> {
+  addReview(authorReview: AuthorReview, touristId: string): Observable<AuthorReview> {
     return this.http.post<AuthorReview>(environment.apiHost + 'tourist/authorReview/' + touristId, authorReview);
   }
 
-  getAuthorReviews(authorId:number) : Observable<PagedResults<AuthorReview>>{
+  getAuthorReviews(authorId:string) : Observable<PagedResults<AuthorReview>>{
     return this.http.get<PagedResults<AuthorReview>>(environment.apiHost + 'tourist/authorReview/' + authorId);
   } 
 

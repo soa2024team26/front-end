@@ -76,7 +76,7 @@ export class BlogManagemetComponent {
     })
   }
 
-  async getBlogsByUserId(userId: number): Promise<void> {
+  async getBlogsByUserId(userId: string): Promise<void> {
     try {
       userId = this.userId;
       const result = await this.service.getBlogsByUserId(userId).toPromise();
