@@ -14,7 +14,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 })
 export class CommentsReviewComponent implements OnInit {
   @Input() comments: BlogComment[] = [];
-  blogId : number;
+  blogId : string;
   selectedBlogComment: BlogComment | null;
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
@@ -41,7 +41,7 @@ export class CommentsReviewComponent implements OnInit {
       const updatedComment = { ...this.selectedBlogComment, text: this.editedCommentText };
       
       // Pozovite odgovarajući servis da sačuva izmene na serveru
-      this.blogService.updateBlogComment(updatedComment).subscribe((result) => {
+      this.blogService.updateBlogComment(updatedComment, this.blogId, 0).subscribe((result) => {
         if (result) {
           // Osvežite listu komentara nakon uređivanja
           this.comments = this.comments.map((comment) => {
@@ -66,10 +66,10 @@ export class CommentsReviewComponent implements OnInit {
   ngOnInit(): void {
    
     this.route.params.subscribe(params => {
-      const blogId = params['id']; // Ovo 'blogId' mora da se poklapa sa imenom parametra iz URL-a
+      this.blogId = params['id']; // Ovo 'blogId' mora da se poklapa sa imenom parametra iz URL-a
       this.currentUserId = this.authService.user$.value.id;
-      if (blogId) {
-        this.getCommentsByBlogId(blogId);
+      if (this.blogId) {
+        this.getCommentsByBlogId(this.blogId);
       } else {
         // Handle the case when there is no valid blog ID in the URL.
       }
@@ -82,8 +82,8 @@ export class CommentsReviewComponent implements OnInit {
 
   getCommentsByBlogId(blogId: string): void {
     this.blogService.getCommentsByBlogId(blogId).subscribe({
-      next: (result: PagedResults<BlogComment>) => {
-        this.comments = result.results;
+      next: (result: BlogComment[]) => {
+        this.comments = result;
         
       },
       error: () => {
@@ -94,7 +94,7 @@ export class CommentsReviewComponent implements OnInit {
   }
 
   deleteBlogComment(id: string): void {
-    this.blogService.deleteBlogComment(id).subscribe({
+    this.blogService.deleteBlogComment(this.blogId, 0).subscribe({
       next: () => {
         this.getBlogComment();
       },
@@ -102,9 +102,9 @@ export class CommentsReviewComponent implements OnInit {
   }
 
   getBlogComment(): void {
-    this.blogService.getBlogComment().subscribe({
-      next: (result: PagedResults<BlogComment>) => {
-        this.comments = result.results;
+    this.blogService.getCommentsByBlogId(this.blogId).subscribe({
+      next: (result: BlogComment[]) => {
+        this.comments = result;
        
       },
       error: () => {

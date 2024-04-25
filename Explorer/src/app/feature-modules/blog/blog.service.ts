@@ -14,29 +14,29 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  getBlogComment(): Observable<PagedResults<BlogComment>> {
+/*   getBlogComment(): Observable<PagedResults<BlogComment>> {
     return this.http.get<PagedResults<BlogComment>>('http://localhost:8080/api/' + 'tourist/blogcomment?page=0&pageSize=0')
+  } */
+
+  deleteBlogComment(id: string, index: any): Observable<BlogComment> {
+    return this.http.delete<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment/' + id + '/' + index);
   }
 
-  deleteBlogComment(id: string): Observable<BlogComment> {
-    return this.http.delete<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment/' + id);
-  }
-
-  addBlogComment(comment: BlogComment): Observable<BlogComment> {
+  addBlogComment(comment: BlogComment, blogId: string): Observable<BlogComment> {
     console.log(comment);
-    return this.http.post<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment', comment);
+    return this.http.put<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment/' + blogId, comment);
   }
 
-  updateBlogComment(comment: BlogComment): Observable<BlogComment> {
-    return this.http.put<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment/' + comment.id, comment);
+  updateBlogComment(comment : BlogComment, blogId: string, index: any): Observable<BlogComment> {
+    return this.http.put<BlogComment>('http://localhost:8080/api/' + 'tourist/blogcomment/' + blogId + '/' + index, comment);
   }
 
-  getBlogs(): Observable<PagedResults<Blog>> {
-    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog?page=0&pageSize=0')
+  getBlogs(): Observable<Blog[]> {
+    return this.http.get<Blog[]>('http://localhost:8080/api/' + 'tourist/blog')
   }
 
-  getBlogsByStatus(status: BlogStatus): Observable<PagedResults<Blog>> {
-    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog/byStatus/' + status)
+  getBlogsByStatus(status: BlogStatus): Observable<Blog[]> {
+    return this.http.get<Blog[]>('http://localhost:8080/api/' + 'tourist/blog/byStatus/' + status)
   }
 
   deleteBlog(id: string): Observable<Blog> {
@@ -76,14 +76,13 @@ export class BlogService {
     return this.http.request(req);
   }
 
-  getBlogsByUserId(id: string): Observable<PagedResults<Blog>> {
-    return this.http.get<PagedResults<Blog>>('http://localhost:8080/api/' + 'tourist/blog/getByUserID/' + id);
-  }
-  getCommentsByBlogId(id: string): Observable<PagedResults<BlogComment>> {
-    return this.http.get<PagedResults<BlogComment>>('http://localhost:8080/api/' + 'tourist/blogcomment/getByBlogID/' + id);
-  }
 
-  getSimilarBlogs(currentBlog: Blog): Observable<Blog[]> {
+  }
+  getCommentsByBlogId(id: string): Observable<BlogComment[]> {
+    return this.http.get<BlogComment[]>('http://localhost:8080/api/' + 'tourist/blogcomment/getByBlogID/' + id);
+  }
+}
+/*    getSimilarBlogs(currentBlog: Blog): Observable<Blog[]> {
     return this.getBlogs().pipe(
       map((allBlogs: PagedResults<Blog>) => {
         const similarBlogs: Blog[] = [];
@@ -99,4 +98,5 @@ export class BlogService {
     );
   }
 
-}
+} */
+ 

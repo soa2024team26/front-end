@@ -32,7 +32,7 @@ export class TouristPostsComponent implements OnInit{
   getBlogPostsByProfile() : void {
     this.blogService.getBlogs().subscribe({
       next: (result) => {
-        this.blogPosts = result.results;
+        this.blogPosts = result;
 
         const userId = this.selectedProfile?.userId;
         if (userId === undefined) {

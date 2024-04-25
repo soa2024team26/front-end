@@ -81,9 +81,9 @@ export class BlogReviewComponent {
 
   getBlogs(): void {
     this.service.getBlogs().subscribe({
-      next: (result: PagedResults<Blog>) => {
-        this.blogs = result.results;
-        this.originalBlogs = [...result.results];
+      next: (result: Blog[]) => {
+        this.blogs = result;
+        this.originalBlogs = [...result];
         this.totalPages = Math.ceil(this.blogs.length / this.itemsPerPage); 
         this.totalPageArray = Array.from({ length: this.totalPages }, (_, index) => index + 1);
         this.updateBlogRows();
@@ -125,11 +125,11 @@ export class BlogReviewComponent {
       this.getBlogs();
     } else {
       this.service.getBlogsByStatus(status).subscribe({
-        next: (result: PagedResults<Blog>) => {
+        next: (result: Blog[]) => {
           console.log('Filtered blogs result:', result);
   
-          if (result.results && result.results.length > 0) {
-            this.blogs = result.results;
+          if (result && result.length > 0) {
+            this.blogs = result;
             this.totalPages = Math.ceil(this.blogs.length / this.itemsPerPage);
             this.totalPageArray = Array.from({ length: this.totalPages }, (_, index) => index + 1);
               

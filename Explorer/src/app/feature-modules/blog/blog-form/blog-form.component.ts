@@ -233,6 +233,7 @@ export class BlogFormComponent {
       this.service.addBlog(blog).subscribe({
         next: (_) => {
           this.blogUpdated.emit();
+          this.router.navigate(['/blog-review'])
         }
       });
     } else {
