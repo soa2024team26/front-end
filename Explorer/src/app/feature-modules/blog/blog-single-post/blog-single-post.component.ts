@@ -191,7 +191,7 @@ ngOnInit(): void {
 
   
   
-  getBlogComment(): void {
+/*   getBlogComment(): void {
     this.blogService.getBlogComment().subscribe({
       next: (result: PagedResults<BlogComment>) => {
         this.comments = result.results;
@@ -199,7 +199,7 @@ ngOnInit(): void {
       error: () => {
       }
     })
-  }
+  } */
 
   onReadMoreClicked(id: string){
     this.router.navigate(['blog-single-post', id]).then(() => {

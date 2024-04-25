@@ -17,12 +17,12 @@ export class BlogCommentsComponent implements OnInit {
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
   userNames: { [key: number]: string } = {};
-  @Input() blogId: number | null;
+  @Input() blogId: string ;
   
   constructor(private service: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getBlogComment();
+    this.getBlogComment;
   }
   
   deleteBlogComment(id: string): void {
@@ -34,7 +34,7 @@ export class BlogCommentsComponent implements OnInit {
   }
 
   getBlogComment(): void {
-    this.service.getBlogComment().subscribe({
+    this.service.getCommentsByBlogId(this.blogId).subscribe({
       next: (result: PagedResults<BlogComment>) => {
         this.blogComments = result.results;
         this.loadUserNames(); 

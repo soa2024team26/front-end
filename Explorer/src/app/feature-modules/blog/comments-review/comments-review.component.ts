@@ -14,7 +14,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 })
 export class CommentsReviewComponent implements OnInit {
   @Input() comments: BlogComment[] = [];
-  blogId : number;
+  blogId : string;
   selectedBlogComment: BlogComment | null;
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
@@ -102,7 +102,7 @@ export class CommentsReviewComponent implements OnInit {
   }
 
   getBlogComment(): void {
-    this.blogService.getBlogComment().subscribe({
+    this.blogService.getCommentsByBlogId(this.blogId).subscribe({
       next: (result: PagedResults<BlogComment>) => {
         this.comments = result.results;
        
