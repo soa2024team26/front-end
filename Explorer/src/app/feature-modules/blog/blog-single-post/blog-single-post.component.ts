@@ -53,9 +53,9 @@ ngOnInit(): void {
         if(blogId){
           this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) =>{
             this.ratingCount = ratingCount.count;
-            this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
-            this.similarBlogs = similarBlogs;
-          });
+            //this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
+            //this.similarBlogs = similarBlogs;
+         // });
         });
         }
        /* if (blogId) {
@@ -134,14 +134,15 @@ ngOnInit(): void {
             blogId: this.blogId
           };
       
-          this.blogService.addRating(rating, this.blogId).subscribe({
+         /*  this.blogService.addRating(rating, this.blogId).subscribe({
             next: () => {
               this.updateRatingCount();
             },
             error: (error) => {
               // Obrada greške
             }
-          });
+          }); */
+          this.updateRatingCount();
         }
       })
     
@@ -167,26 +168,27 @@ ngOnInit(): void {
             blogId: this.blogId
           };
       
-          this.blogService.addRating(rating, this.blogId).subscribe({
+          /* this.blogService.addRating(rating, this.blogId).subscribe({
             next: () => {
               this.updateRatingCount();
             },
             error: (error) => {
               // Obrada greške
             }
-          });
+          }); */
+          this.updateRatingCount();
         }
       })
     
   }
 
   sendRating() {
-    this.blogService.addRating(this.rating, this.blogId).subscribe(
+    /* this.blogService.addRating(this.rating, this.blogId).subscribe(
       response => {
       },
       error => {
       }
-    );
+    ); */
   }
 
   

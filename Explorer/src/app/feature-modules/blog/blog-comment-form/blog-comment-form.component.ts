@@ -55,7 +55,7 @@ export class BlogCommentFormComponent {
             lastModification: new Date()
           };
           
-          this.service.addBlogComment(blogComment).subscribe({
+          this.service.addBlogComment(blogComment,this.blogId).subscribe({
             next: () => { this.blogCommentForm.reset(); this.blogCommentUpdated.emit(blogComment) }
           });
         }
@@ -77,7 +77,7 @@ export class BlogCommentFormComponent {
 
     };
     blogComment.id = this.blogComment.id;
-    this.service.updateBlogComment(blogComment).subscribe({
+    this.service.updateBlogComment(blogComment, this.blogId, 0).subscribe({
       next: () => { this.blogCommentUpdated.emit();}
     });
   }

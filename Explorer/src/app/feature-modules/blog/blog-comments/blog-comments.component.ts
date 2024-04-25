@@ -26,7 +26,7 @@ export class BlogCommentsComponent implements OnInit {
   }
   
   deleteBlogComment(id: string): void {
-    this.service.deleteBlogComment(id).subscribe({
+    this.service.deleteBlogComment(this.blogId, 0).subscribe({
       next: () => {
         this.getBlogComment();
       },
@@ -35,8 +35,8 @@ export class BlogCommentsComponent implements OnInit {
 
   getBlogComment(): void {
     this.service.getCommentsByBlogId(this.blogId).subscribe({
-      next: (result: PagedResults<BlogComment>) => {
-        this.blogComments = result.results;
+      next: (result: BlogComment[]) => {
+        this.blogComments = result;
         this.loadUserNames(); 
       },
       error: () => {
