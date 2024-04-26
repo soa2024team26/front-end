@@ -63,8 +63,8 @@ export class BlogReviewComponent {
 
   getAndFilterBlogs(): void {
     this.service.getBlogs().subscribe({
-      next: (result: PagedResults<Blog>) => {
-        this.originalBlogs = result.results;
+      next: (result: Blog[]) => {
+        this.originalBlogs = result;
         // Filter blogs based on followers
         this.filteredBlogs = this.originalBlogs.filter(blog => 
           this.following.some(follow => follow.userId === blog.userId)

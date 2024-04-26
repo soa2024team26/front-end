@@ -123,7 +123,7 @@ export class FollowersComponent implements OnInit {
     } else {
         console.log('Logged in profile is null');
     }
-}
+  }
 
 
 }

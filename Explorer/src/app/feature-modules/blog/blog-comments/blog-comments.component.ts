@@ -16,7 +16,7 @@ export class BlogCommentsComponent implements OnInit {
   selectedBlogComment: BlogComment;
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
-  userNames: { [key: number]: string } = {};
+  userNames: { [key: string]: string } = {};
   @Input() blogId: string ;
 
   
