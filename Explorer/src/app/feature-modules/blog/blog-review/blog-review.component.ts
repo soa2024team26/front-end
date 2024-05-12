@@ -23,7 +23,7 @@ export class BlogReviewComponent {
   originalBlogs: Blog[] = [];
   filteredBlogs: Blog[] = [];
 
-  loggedInProfile: Profile | null = null;
+  loggedInProfile: Profile 
   following: Profile[] = [];
 
   constructor(private service: BlogService, private router: Router, private adminService: AdministrationService,private cdr: ChangeDetectorRef) {}
@@ -51,6 +51,10 @@ export class BlogReviewComponent {
       this.adminService.getFollowing(this.loggedInProfile).subscribe({
         next: (result: PagedResults<Profile>) => {
           this.following = result.results;
+          // Add the logged-in user's profile to the following list if loggedInProfile is not null
+          if (this.loggedInProfile) {
+            this.following.push(this.loggedInProfile);
+          }
           // Once followers are retrieved, proceed to get and filter blogs
           this.getAndFilterBlogs();
         },
@@ -58,26 +62,39 @@ export class BlogReviewComponent {
           console.error('Error while getting followers:', err);
         }
       });
+    } else {
+      console.warn('Logged-in profile is null. Cannot get followers.');
     }
   }
-
+  
   getAndFilterBlogs(): void {
     this.service.getBlogs().subscribe({
       next: (result: Blog[]) => {
         this.originalBlogs = result;
-        // Filter blogs based on followers
-        this.filteredBlogs = this.originalBlogs.filter(blog => 
-          this.following.some(follow => follow.userId === blog.userId)
-        );
+        // Filter blogs based on whether the blog author's user ID matches the logged-in user's ID or any follower's ID
+        if (this.loggedInProfile) {
+          this.filteredBlogs = this.originalBlogs.filter(blog => 
+            blog.userId == this.loggedInProfile.userId ||
+            this.following.some(follow => follow.userId === blog.userId)
+          );
+          this.blogs = this.filteredBlogs;
+        } else {
+          console.warn('Logged-in profile is null. Filtering blogs based only on followers.');
+          this.filteredBlogs = this.originalBlogs.filter(blog =>
+            this.following.some(follow => follow.userId === blog.userId)
+          );
+        }
         this.totalPages = Math.ceil(this.filteredBlogs.length / this.itemsPerPage); 
         this.totalPageArray = Array.from({ length: this.totalPages }, (_, index) => index + 1);
         this.updateBlogRows();
+        this.cdr.detectChanges();
       },
       error: () => {
         console.error('Error while retrieving blogs');
       }
     });
   }
+  
 
   getBlogs(): void {
     this.service.getBlogs().subscribe({
